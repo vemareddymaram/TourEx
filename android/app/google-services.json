@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "793487298247",
+    "firebase_url": "https://tourex-ac7ea-default-rtdb.firebaseio.com",
+    "project_id": "tourex-ac7ea",
+    "storage_bucket": "tourex-ac7ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793487298247:android:827b5a2e55c62c025078e2",
+        "android_client_info": {
+          "package_name": "com.mycompany.travelapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793487298247-248nt9okafvsncfdlpd8ks73tfh83e5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2fIUWYYbIU0HiN9S1idYmhC5JjNKAJJg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793487298247-248nt9okafvsncfdlpd8ks73tfh83e5s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "793487298247-frpqpabbepksrs1n6795p8e3grkajhn4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.travelapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
