@@ -43,7 +43,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -54,15 +56,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                  width: 499.0,
+                  width: MediaQuery.sizeOf(context).width * 1.0,
                   height: 356.0,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 4.0,
                         color: Color(0x33000000),
-                        offset: Offset(0.0, 2.0),
+                        offset: Offset(0.0, 4.0),
                       )
                     ],
                     borderRadius: BorderRadius.only(
@@ -82,8 +84,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           width: 416.0,
                           height: 196.0,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
                             image: DecorationImage(
                               fit: BoxFit.cover,
                               image: Image.asset(
@@ -100,10 +102,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           width: 548.0,
                           height: 143.0,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
                             image: DecorationImage(
-                              fit: BoxFit.fitWidth,
+                              fit: BoxFit.cover,
                               image: Image.asset(
                                 'assets/images/TEX.png',
                               ).image,
@@ -335,7 +337,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    context.pushNamed('forgotPwd');
+                                    context.goNamed('forgotPwd');
                                   },
                                   child: Text(
                                     'Forgot Password ?',
@@ -343,7 +345,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Outfit',
-                                          color: Color(0xFF24234E),
+                                          color: FlutterFlowTheme.of(context)
+                                              .tertiary400,
                                           fontSize: 10.0,
                                         ),
                                   ),
@@ -376,7 +379,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     return;
                                   }
 
-                                  context.pushNamedAuth(
+                                  context.goNamedAuth(
                                       'homePage', context.mounted);
                                 },
                                 text: 'Sign In',
@@ -423,7 +426,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(95.0, 15.0, 0.0, 0.0),
                       child: Text(
-                        'Don\'t have an account ?',
+                        'Don\'t have an account?',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Outfit',
@@ -440,23 +443,24 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed('signUp');
+                          context.goNamed('signUp');
                         },
                         child: Text(
                           'Sign Up',
                           textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Outfit',
-                                    color: Color(0xFF24234E),
-                                    letterSpacing: 1.0,
-                                  ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'Outfit',
+                                color: FlutterFlowTheme.of(context).tertiary400,
+                                letterSpacing: 1.0,
+                              ),
                         ),
                       ),
                     ),
                   ],
                 ),
-              ],
+              ].addToEnd(SizedBox(height: 30.0)),
             ),
           ),
         ),

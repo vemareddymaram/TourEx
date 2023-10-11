@@ -5,9 +5,10 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/backend/supabase/supabase.dart';
+
 import '../../auth/base_auth_user_provider.dart';
 
 import '/index.dart';
@@ -84,23 +85,25 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) => _RouteErrorBuilder(
         state: state,
-        child: appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
+        child: appStateNotifier.loggedIn ? HomePageWidget() : SignUpWidget(),
       ),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
+              appStateNotifier.loggedIn ? HomePageWidget() : SignUpWidget(),
           routes: [
             FFRoute(
               name: 'profilePage',
               path: 'profilePage',
+              requireAuth: true,
               builder: (context, params) => ProfilePageWidget(),
             ),
             FFRoute(
               name: 'LoginPage',
               path: 'loginPage',
+              requireAuth: true,
               builder: (context, params) => LoginPageWidget(),
             ),
             FFRoute(
@@ -111,6 +114,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'forgotPwd',
               path: 'forgotPwd',
+              requireAuth: true,
               builder: (context, params) => ForgotPwdWidget(),
             ),
             FFRoute(
@@ -122,17 +126,48 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'userProfile',
               path: 'userProfile',
-              builder: (context, params) => UserProfileWidget(),
+              requireAuth: true,
+              builder: (context, params) => UserProfileWidget(
+                userRef: params.getParam(
+                    'userRef', ParamType.DocumentReference, false, ['users']),
+              ),
             ),
             FFRoute(
               name: 'searchPage',
               path: 'searchPage',
+              requireAuth: true,
               builder: (context, params) => SearchPageWidget(),
             ),
             FFRoute(
               name: 'PlaceDescription',
               path: 'placeDescription',
+              requireAuth: true,
               builder: (context, params) => PlaceDescriptionWidget(),
+            ),
+            FFRoute(
+              name: 'wishlistPage',
+              path: 'wishlistPage',
+              requireAuth: true,
+              builder: (context, params) => WishlistPageWidget(),
+            ),
+            FFRoute(
+              name: 'tourListPage',
+              path: 'tourListPage',
+              requireAuth: true,
+              builder: (context, params) => TourListPageWidget(),
+            ),
+            FFRoute(
+              name: 'HotelsNRestaurantDetailsPage',
+              path: 'hotelsNRestaurantDetailsPage',
+              requireAuth: true,
+              builder: (context, params) =>
+                  HotelsNRestaurantDetailsPageWidget(),
+            ),
+            FFRoute(
+              name: 'placeCartPage',
+              path: 'placeCartPage',
+              requireAuth: true,
+              builder: (context, params) => PlaceCartPageWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -301,7 +336,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/loginPage';
+            return '/signUp';
           }
           return null;
         },
@@ -388,4 +423,24 @@ class _RouteErrorBuilderState extends State<_RouteErrorBuilder> {
 
   @override
   Widget build(BuildContext context) => widget.child;
+}
+
+class RootPageContext {
+  const RootPageContext(this.isRootPage, [this.errorRoute]);
+  final bool isRootPage;
+  final String? errorRoute;
+
+  static bool isInactiveRootPage(BuildContext context) {
+    final rootPageContext = context.read<RootPageContext?>();
+    final isRootPage = rootPageContext?.isRootPage ?? false;
+    final location = GoRouter.of(context).location;
+    return isRootPage &&
+        location != '/' &&
+        location != rootPageContext?.errorRoute;
+  }
+
+  static Widget wrap(Widget child, {String? errorRoute}) => Provider.value(
+        value: RootPageContext(true, errorRoute),
+        child: child,
+      );
 }

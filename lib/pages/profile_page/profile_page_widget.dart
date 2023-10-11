@@ -1,7 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/components/rating_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,7 +43,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -101,24 +106,52 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              elevation: 2.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    2.0, 2.0, 2.0, 2.0),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(40.0),
-                                  child: Image.asset(
-                                    'assets/images/user.png',
-                                    width: 60.0,
-                                    height: 60.0,
-                                    fit: BoxFit.cover,
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  5.0, 0.0, 0.0, 0.0),
+                              child: Material(
+                                color: Colors.transparent,
+                                elevation: 3.0,
+                                shape: const CircleBorder(),
+                                child: Container(
+                                  width: 80.0,
+                                  height: 80.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 4.0,
+                                        color: Color(0x33000000),
+                                        offset: Offset(0.0, 2.0),
+                                        spreadRadius: 3.0,
+                                      )
+                                    ],
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: AuthUserStreamWidget(
+                                    builder: (context) => Container(
+                                      width: 80.0,
+                                      height: 80.0,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: CachedNetworkImage(
+                                        fadeInDuration:
+                                            Duration(milliseconds: 500),
+                                        fadeOutDuration:
+                                            Duration(milliseconds: 500),
+                                        imageUrl: currentUserPhoto,
+                                        fit: BoxFit.cover,
+                                        errorWidget:
+                                            (context, error, stackTrace) =>
+                                                Image.asset(
+                                          'assets/images/error_image.jpg',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -131,16 +164,18 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'User Name',
-                                    style: FlutterFlowTheme.of(context)
-                                        .headlineSmall,
+                                  AuthUserStreamWidget(
+                                    builder: (context) => Text(
+                                      currentUserDisplayName,
+                                      style: FlutterFlowTheme.of(context)
+                                          .headlineSmall,
+                                    ),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 4.0, 0.0, 0.0),
                                     child: Text(
-                                      'username@gmail.com',
+                                      currentUserEmail,
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall,
                                     ),
@@ -181,7 +216,15 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed('userProfile');
+                          context.pushNamed(
+                            'userProfile',
+                            queryParameters: {
+                              'userRef': serializeParam(
+                                currentUserReference,
+                                ParamType.DocumentReference,
+                              ),
+                            }.withoutNulls,
+                          );
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -206,7 +249,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                             ),
                             Expanded(
                               child: Align(
-                                alignment: AlignmentDirectional(0.9, 0.0),
+                                alignment: AlignmentDirectional(0.90, 0.00),
                                 child: Icon(
                                   Icons.arrow_forward_ios,
                                   color: FlutterFlowTheme.of(context)
@@ -265,7 +308,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                           ),
                           Expanded(
                             child: Align(
-                              alignment: AlignmentDirectional(0.9, 0.0),
+                              alignment: AlignmentDirectional(0.90, 0.00),
                               child: Icon(
                                 Icons.arrow_forward_ios,
                                 color:
@@ -300,39 +343,48 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Icon(
-                            Icons.favorite,
-                            color: FlutterFlowTheme.of(context).customColor3,
-                            size: 24.0,
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Wishlist',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodySmall
-                                  .override(
-                                    fontFamily: 'Outfit',
-                                    letterSpacing: 2.0,
-                                  ),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('wishlistPage');
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Icon(
+                              Icons.favorite,
+                              color: FlutterFlowTheme.of(context).customColor3,
+                              size: 24.0,
                             ),
-                          ),
-                          Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(0.9, 0.0),
-                              child: Icon(
-                                Icons.arrow_forward_ios,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                size: 18.0,
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                'Wishlist',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodySmall
+                                    .override(
+                                      fontFamily: 'Outfit',
+                                      letterSpacing: 2.0,
+                                    ),
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(0.90, 0.00),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 18.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -358,39 +410,136 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.route,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            size: 24.0,
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Your Tour',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodySmall
-                                  .override(
-                                    fontFamily: 'Outfit',
-                                    letterSpacing: 2.0,
-                                  ),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.goNamed('tourListPage');
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            FaIcon(
+                              FontAwesomeIcons.route,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              size: 24.0,
                             ),
-                          ),
-                          Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(0.9, 0.0),
-                              child: Icon(
-                                Icons.arrow_forward_ios,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                size: 18.0,
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                'Your Tour',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodySmall
+                                    .override(
+                                      fontFamily: 'Outfit',
+                                      letterSpacing: 2.0,
+                                    ),
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(0.90, 0.00),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 18.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(16.0, 25.0, 16.0, 0.0),
+                  child: Container(
+                    width: double.infinity,
+                    height: 60.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 5.0,
+                          color: Color(0x3416202A),
+                          offset: Offset(0.0, 2.0),
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(12.0),
+                      shape: BoxShape.rectangle,
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            isDismissible: false,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return GestureDetector(
+                                onTap: () => _model.unfocusNode.canRequestFocus
+                                    ? FocusScope.of(context)
+                                        .requestFocus(_model.unfocusNode)
+                                    : FocusScope.of(context).unfocus(),
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: Container(
+                                    height: 220.0,
+                                    child: RatingBarWidget(),
+                                  ),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Icon(
+                              Icons.star_rate,
+                              color: FlutterFlowTheme.of(context).warning,
+                              size: 24.0,
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                'Rate Us',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodySmall
+                                    .override(
+                                      fontFamily: 'Outfit',
+                                      letterSpacing: 2.0,
+                                    ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(0.90, 0.00),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 18.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -451,7 +600,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                             ),
                             Expanded(
                               child: Align(
-                                alignment: AlignmentDirectional(0.9, 0.0),
+                                alignment: AlignmentDirectional(0.90, 0.00),
                                 child: Icon(
                                   Icons.arrow_forward_ios,
                                   color: FlutterFlowTheme.of(context)
@@ -466,7 +615,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                     ),
                   ),
                 ),
-              ],
+              ].addToEnd(SizedBox(height: 30.0)),
             ),
           ),
         ),
