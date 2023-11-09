@@ -14,12 +14,13 @@ extension DateTimeExtension on DateTime {
 
 class FlutterFlowCalendar extends StatefulWidget {
   const FlutterFlowCalendar({
-    Key? key,
+    super.key,
     required this.color,
     this.onChange,
     this.initialDate,
     this.weekFormat = false,
     this.weekStartsMonday = false,
+    this.twoRowHeader = false,
     this.iconColor,
     this.dateStyle,
     this.dayOfWeekStyle,
@@ -28,10 +29,11 @@ class FlutterFlowCalendar extends StatefulWidget {
     this.titleStyle,
     this.rowHeight,
     this.locale,
-  }) : super(key: key);
+  });
 
   final bool weekFormat;
   final bool weekStartsMonday;
+  final bool twoRowHeader;
   final Color color;
   final void Function(DateTimeRange?)? onChange;
   final DateTime? initialDate;
@@ -120,6 +122,7 @@ class _FlutterFlowCalendarState extends State<FlutterFlowCalendar> {
             titleStyle: widget.titleStyle,
             iconColor: widget.iconColor,
             locale: widget.locale,
+            twoRowHeader: widget.twoRowHeader,
           ),
           TableCalendar(
             focusedDay: focusedDay,
@@ -134,9 +137,9 @@ class _FlutterFlowCalendarState extends State<FlutterFlowCalendar> {
               defaultTextStyle:
                   widget.dateStyle ?? const TextStyle(color: Color(0xFF5A5A5A)),
               weekendTextStyle: widget.dateStyle ??
-                  const TextStyle(color: const Color(0xFF5A5A5A)),
+                  const TextStyle(color: Color(0xFF5A5A5A)),
               holidayTextStyle: widget.dateStyle ??
-                  const TextStyle(color: const Color(0xFF5C6BC0)),
+                  const TextStyle(color: Color(0xFF5C6BC0)),
               selectedTextStyle:
                   const TextStyle(color: Color(0xFFFAFAFA), fontSize: 16.0)
                       .merge(widget.selectedDateStyle),
@@ -188,7 +191,7 @@ class _FlutterFlowCalendarState extends State<FlutterFlowCalendar> {
 
 class CalendarHeader extends StatelessWidget {
   const CalendarHeader({
-    Key? key,
+    super.key,
     required this.focusedDay,
     required this.onLeftChevronTap,
     required this.onRightChevronTap,
@@ -196,7 +199,8 @@ class CalendarHeader extends StatelessWidget {
     this.iconColor,
     this.titleStyle,
     this.locale,
-  }) : super(key: key);
+    this.twoRowHeader = false,
+  });
 
   final DateTime focusedDay;
   final VoidCallback onLeftChevronTap;
@@ -205,49 +209,73 @@ class CalendarHeader extends StatelessWidget {
   final Color? iconColor;
   final TextStyle? titleStyle;
   final String? locale;
+  final bool twoRowHeader;
 
   @override
   Widget build(BuildContext context) => Container(
         decoration: const BoxDecoration(),
         margin: const EdgeInsets.all(0),
         padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            const SizedBox(
-              width: 20,
-            ),
-            Expanded(
-              child: Text(
-                DateFormat.yMMMM(locale).format(focusedDay),
-                style: const TextStyle(fontSize: 17).merge(titleStyle),
-              ),
-            ),
-            CustomIconButton(
-              icon: Icon(Icons.calendar_today, color: iconColor),
-              onTap: onTodayButtonTap,
-            ),
-            CustomIconButton(
-              icon: Icon(Icons.chevron_left, color: iconColor),
-              onTap: onLeftChevronTap,
-            ),
-            CustomIconButton(
-              icon: Icon(Icons.chevron_right, color: iconColor),
-              onTap: onRightChevronTap,
-            ),
-          ],
+        child: twoRowHeader ? _buildTwoRowHeader() : _buildOneRowHeader(),
+      );
+
+  Widget _buildTwoRowHeader() => Column(
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const SizedBox(width: 16),
+              _buildDateWidget(),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: _buildCustomIconButtons(),
+          ),
+        ],
+      );
+
+  Widget _buildOneRowHeader() => Row(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          const SizedBox(width: 16),
+          _buildDateWidget(),
+          ..._buildCustomIconButtons(),
+        ],
+      );
+
+  Widget _buildDateWidget() => Expanded(
+        child: Text(
+          DateFormat.yMMMM(locale).format(focusedDay),
+          style: const TextStyle(fontSize: 17).merge(titleStyle),
         ),
       );
+
+  List<Widget> _buildCustomIconButtons() => <Widget>[
+        CustomIconButton(
+          icon: Icon(Icons.calendar_today, color: iconColor),
+          onTap: onTodayButtonTap,
+        ),
+        CustomIconButton(
+          icon: Icon(Icons.chevron_left, color: iconColor),
+          onTap: onLeftChevronTap,
+        ),
+        CustomIconButton(
+          icon: Icon(Icons.chevron_right, color: iconColor),
+          onTap: onRightChevronTap,
+        ),
+      ];
 }
 
 class CustomIconButton extends StatelessWidget {
   const CustomIconButton({
-    Key? key,
+    super.key,
     required this.icon,
     required this.onTap,
     this.margin = const EdgeInsets.symmetric(horizontal: 4),
     this.padding = const EdgeInsets.all(10),
-  }) : super(key: key);
+  });
 
   final Icon icon;
   final VoidCallback onTap;

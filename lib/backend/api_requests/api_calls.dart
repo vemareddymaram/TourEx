@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
-import '../../flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -22,10 +21,10 @@ class WeatherGroup {
 class RealtimeWeatherAPICall {
   Future<ApiCallResponse> call({
     String? place = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Realtime Weather API',
-      apiUrl: '${WeatherGroup.baseUrl}/current.json?q=${place}',
+      apiUrl: '${WeatherGroup.baseUrl}/current.json?q=$place',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': 'a24c585d42msh42d550dcd1dbb4ep1ae36ajsn1aef31bcffd7',
@@ -152,10 +151,10 @@ class RealtimeWeatherAPICall {
 class SearchOrAutocompleteWeatherAPICall {
   Future<ApiCallResponse> call({
     String? place = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Search or Autocomplete Weather API',
-      apiUrl: '${WeatherGroup.baseUrl}/search.json?q=${place}',
+      apiUrl: '${WeatherGroup.baseUrl}/search.json?q=$place',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -231,11 +230,11 @@ class TripadvisorGroup {
 class SearchAirportAPICall {
   Future<ApiCallResponse> call({
     String? place = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Search Airport API',
       apiUrl:
-          '${TripadvisorGroup.baseUrl}/flights/searchAirport?query=${place}',
+          '${TripadvisorGroup.baseUrl}/flights/searchAirport?query=$place',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -257,11 +256,11 @@ class GetFiltersAPICall {
     String? date = '',
     String? itineraryType = '',
     String? classOfService = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get Filters API',
       apiUrl:
-          '${TripadvisorGroup.baseUrl}/flights/getFilters?sourceAirportCode=${sourceAirportCode}&destinationAirportCode=${destinationAirportCode}&date=${date}&itineraryType=${itineraryType}&classOfService=${classOfService}',
+          '${TripadvisorGroup.baseUrl}/flights/getFilters?sourceAirportCode=$sourceAirportCode&destinationAirportCode=$destinationAirportCode&date=$date&itineraryType=$itineraryType&classOfService=$classOfService',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -288,11 +287,11 @@ class SearchFlightsAPICall {
     String? classOfService = '',
     String? currencyCode = '',
     int? pageNumber,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Search Flights API',
       apiUrl:
-          '${TripadvisorGroup.baseUrl}/flights/searchFlights?sourceAirportCode=${sourceAirportCode}&destinationAirportCode=${destinationAirportCode}&date=${date}&itineraryType=${itineraryType}&sortOrder=${sortOrder}&numAdults=${numAdults}&numSeniors=${numSeniors}&classOfService=${classOfService}&pageNumber=${pageNumber}&currencyCode=${currencyCode}',
+          '${TripadvisorGroup.baseUrl}/flights/searchFlights?sourceAirportCode=$sourceAirportCode&destinationAirportCode=$destinationAirportCode&date=$date&itineraryType=$itineraryType&sortOrder=$sortOrder&numAdults=$numAdults&numSeniors=$numSeniors&classOfService=$classOfService&pageNumber=$pageNumber&currencyCode=$currencyCode',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -502,11 +501,11 @@ class SearchFlightsAPICall {
 class SearchLocationAPICall {
   Future<ApiCallResponse> call({
     String? place = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Search Location API',
       apiUrl:
-          '${TripadvisorGroup.baseUrl}/hotels/searchLocation?query=${place}',
+          '${TripadvisorGroup.baseUrl}/hotels/searchLocation?query=$place',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -557,11 +556,11 @@ class GetHotelsFilterAPICall {
     String? checkOut = '',
     String? latitude = '',
     String? longitude = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get Hotels Filter API',
       apiUrl:
-          '${TripadvisorGroup.baseUrl}/hotels/searchHotelsByLocation?geoId=${geoId}&checkIn=${checkIn}&checkOut=${checkOut}&latitude=${latitude}&longitude=${longitude}',
+          '${TripadvisorGroup.baseUrl}/hotels/searchHotelsByLocation?geoId=$geoId&checkIn=$checkIn&checkOut=$checkOut&latitude=$latitude&longitude=$longitude',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -736,11 +735,11 @@ class SearchHotelsAPICall {
     String? checkOut = '',
     int? pageNumber,
     String? currencyCode = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Search Hotels API',
       apiUrl:
-          '${TripadvisorGroup.baseUrl}/hotels/searchHotels?geoId=${geoId}&checkIn=${checkIn}&checkOut=${checkOut}&pageNumber=${pageNumber}&currencyCode=${currencyCode}',
+          '${TripadvisorGroup.baseUrl}/hotels/searchHotels?geoId=$geoId&checkIn=$checkIn&checkOut=$checkOut&pageNumber=$pageNumber&currencyCode=$currencyCode',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -935,11 +934,11 @@ class SearchHotelsByLocationAPICall {
     String? checkIn = '',
     String? checkOut = '',
     String? currencyCode = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Search Hotels By Location API',
       apiUrl:
-          '${TripadvisorGroup.baseUrl}/hotels/searchHotelsByLocation?latitude=${latitude}&longitude=${longitude}&checkIn=${checkIn}&checkOut=${checkOut}&currencyCode=${currencyCode}',
+          '${TripadvisorGroup.baseUrl}/hotels/searchHotelsByLocation?latitude=$latitude&longitude=$longitude&checkIn=$checkIn&checkOut=$checkOut&currencyCode=$currencyCode',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -1123,11 +1122,11 @@ class GetHotelDetailsCall {
     String? checkIn = '',
     String? checkOut = '',
     String? currency = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get Hotel Details',
       apiUrl:
-          '${TripadvisorGroup.baseUrl}/hotels/getHotelDetails?id=${id}&checkIn=${checkIn}&checkOut=${checkOut}&currency=${currency}',
+          '${TripadvisorGroup.baseUrl}/hotels/getHotelDetails?id=$id&checkIn=$checkIn&checkOut=$checkOut&currency=$currency',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -1491,11 +1490,11 @@ class GetHotelDetailsCall {
 class SearchRestaurantLocationAPICall {
   Future<ApiCallResponse> call({
     String? place = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Search Restaurant Location API',
       apiUrl:
-          '${TripadvisorGroup.baseUrl}/restaurant/searchLocation?query=${place}',
+          '${TripadvisorGroup.baseUrl}/restaurant/searchLocation?query=$place',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -1602,11 +1601,11 @@ class SearchRestaurantLocationAPICall {
 class SearchRestaurantsAPICall {
   Future<ApiCallResponse> call({
     String? locationId = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Search Restaurants API',
       apiUrl:
-          '${TripadvisorGroup.baseUrl}/restaurant/searchRestaurants?locationId=${locationId}',
+          '${TripadvisorGroup.baseUrl}/restaurant/searchRestaurants?locationId=$locationId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -1882,11 +1881,11 @@ class GetRestaurantDetailsAPICall {
   Future<ApiCallResponse> call({
     String? restaurantsId = '',
     String? currencyCode = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get Restaurant Details API',
       apiUrl:
-          '${TripadvisorGroup.baseUrl}/restaurant/getRestaurantDetails?restaurantsId=${restaurantsId}&currencyCode=${currencyCode}',
+          '${TripadvisorGroup.baseUrl}/restaurant/getRestaurantDetails?restaurantsId=$restaurantsId&currencyCode=$currencyCode',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -2484,7 +2483,7 @@ class GetRestaurantDetailsAPICall {
 }
 
 class GetCurrencyAPICall {
-  Future<ApiCallResponse> call() {
+  Future<ApiCallResponse> call() async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get Currency API',
       apiUrl: '${TripadvisorGroup.baseUrl}/getCurrency',
@@ -2542,306 +2541,6 @@ class GetCurrencyAPICall {
 }
 
 /// End Tripadvisor Group Code
-
-/// Start Tourist Attraction API Group Code
-
-class TouristAttractionAPIGroup {
-  static String baseUrl = 'https://tourist-attraction.p.rapidapi.com';
-  static Map<String, String> headers = {
-    'content-type': 'application/x-www-form-urlencoded',
-    'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
-    'X-RapidAPI-Host': 'tourist-attraction.p.rapidapi.com',
-  };
-  static GetLanguagesAPICall getLanguagesAPICall = GetLanguagesAPICall();
-  static TypeaheadAPICall typeaheadAPICall = TypeaheadAPICall();
-  static SearchAPICall searchAPICall = SearchAPICall();
-  static GetCurrenciesAPICall getCurrenciesAPICall = GetCurrenciesAPICall();
-  static DetailAPICall detailAPICall = DetailAPICall();
-  static PhotosAPICall photosAPICall = PhotosAPICall();
-  static ReviewsAPICall reviewsAPICall = ReviewsAPICall();
-}
-
-class GetLanguagesAPICall {
-  Future<ApiCallResponse> call() {
-    return ApiManager.instance.makeApiCall(
-      callName: 'Get Languages API',
-      apiUrl: '${TouristAttractionAPIGroup.baseUrl}/languages',
-      callType: ApiCallType.GET,
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
-        'X-RapidAPI-Host': 'tourist-attraction.p.rapidapi.com',
-      },
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-    );
-  }
-
-  dynamic status(dynamic response) => getJsonField(
-        response,
-        r'''$.status''',
-      );
-  dynamic locale(dynamic response) => getJsonField(
-        response,
-        r'''$.results[:].locale''',
-        true,
-      );
-  dynamic hostname(dynamic response) => getJsonField(
-        response,
-        r'''$.results[:].hostname''',
-        true,
-      );
-  dynamic hreflang(dynamic response) => getJsonField(
-        response,
-        r'''$.results[:].hreflang''',
-        true,
-      );
-  dynamic pointOfSaleName(dynamic response) => getJsonField(
-        response,
-        r'''$.results[:].pointOfSaleName''',
-        true,
-      );
-  dynamic pointOfSaleNameInCurrentLocale(dynamic response) => getJsonField(
-        response,
-        r'''$.results[:].pointOfSaleNameInCurrentLocale''',
-        true,
-      );
-}
-
-class TypeaheadAPICall {
-  Future<ApiCallResponse> call({
-    String? place = '',
-    String? language = '',
-  }) {
-    return ApiManager.instance.makeApiCall(
-      callName: 'Typeahead API',
-      apiUrl:
-          '${TouristAttractionAPIGroup.baseUrl}/typeahead?q=${place}&language=${language}',
-      callType: ApiCallType.POST,
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
-        'X-RapidAPI-Host': 'tourist-attraction.p.rapidapi.com',
-      },
-      params: {},
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-    );
-  }
-
-  dynamic status(dynamic response) => getJsonField(
-        response,
-        r'''$.status''',
-      );
-  dynamic resulttype(dynamic response) => getJsonField(
-        response,
-        r'''$.results.data[:].result_type''',
-      );
-  dynamic defaultoptionskey(dynamic response) => getJsonField(
-        response,
-        r'''$.results.data[:].result_object.default_options[:].key''',
-        true,
-      );
-  dynamic defaultoptionsname(dynamic response) => getJsonField(
-        response,
-        r'''$.results.data[:].result_object.default_options[:].name''',
-        true,
-      );
-  dynamic defaultoptionsotherinfo(dynamic response) => getJsonField(
-        response,
-        r'''$.results.data[:].result_object.default_options[:].other_info''',
-        true,
-      );
-  dynamic locationsubtype(dynamic response) => getJsonField(
-        response,
-        r'''$.results.data[:].result_object.location_subtype''',
-      );
-  dynamic preferredmapengine(dynamic response) => getJsonField(
-        response,
-        r'''$.results.data[:].result_object.preferred_map_engine''',
-      );
-  dynamic scope(dynamic response) => getJsonField(
-        response,
-        r'''$.results.data[:].scope''',
-      );
-  dynamic partialcontent(dynamic response) => getJsonField(
-        response,
-        r'''$.results.partial_content''',
-      );
-}
-
-class SearchAPICall {
-  Future<ApiCallResponse> call({
-    String? currency = '',
-    String? language = '',
-    String? locationId = '',
-  }) {
-    return ApiManager.instance.makeApiCall(
-      callName: 'Search API',
-      apiUrl:
-          '${TouristAttractionAPIGroup.baseUrl}/search?location_id=${locationId}&language=${language}&currency=${currency}',
-      callType: ApiCallType.POST,
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
-        'X-RapidAPI-Host': 'tourist-attraction.p.rapidapi.com',
-      },
-      params: {},
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-    );
-  }
-
-  dynamic msg(dynamic response) => getJsonField(
-        response,
-        r'''$.msg''',
-      );
-  dynamic status(dynamic response) => getJsonField(
-        response,
-        r'''$.status''',
-      );
-}
-
-class GetCurrenciesAPICall {
-  Future<ApiCallResponse> call({
-    String? currency = '',
-  }) {
-    return ApiManager.instance.makeApiCall(
-      callName: 'Get Currencies API',
-      apiUrl:
-          '${TouristAttractionAPIGroup.baseUrl}/currencies?currency=${currency}',
-      callType: ApiCallType.GET,
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
-        'X-RapidAPI-Host': 'tourist-attraction.p.rapidapi.com',
-      },
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-    );
-  }
-
-  dynamic status(dynamic response) => getJsonField(
-        response,
-        r'''$.status''',
-      );
-  dynamic code(dynamic response) => getJsonField(
-        response,
-        r'''$.results[:].code''',
-        true,
-      );
-  dynamic name(dynamic response) => getJsonField(
-        response,
-        r'''$.results[:].name''',
-        true,
-      );
-  dynamic symbol(dynamic response) => getJsonField(
-        response,
-        r'''$.results[:].symbol''',
-        true,
-      );
-}
-
-class DetailAPICall {
-  Future<ApiCallResponse> call({
-    String? locationId = '',
-    String? language = '',
-    String? currency = '',
-  }) {
-    return ApiManager.instance.makeApiCall(
-      callName: 'Detail API',
-      apiUrl:
-          '${TouristAttractionAPIGroup.baseUrl}/detail?location_id=${locationId}&language=${language}&currency=${currency}',
-      callType: ApiCallType.POST,
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
-        'X-RapidAPI-Host': 'tourist-attraction.p.rapidapi.com',
-      },
-      params: {},
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-    );
-  }
-
-  dynamic status(dynamic response) => getJsonField(
-        response,
-        r'''$.status''',
-      );
-  dynamic msg(dynamic response) => getJsonField(
-        response,
-        r'''$.msg''',
-      );
-}
-
-class PhotosAPICall {
-  Future<ApiCallResponse> call({
-    String? locationId = '',
-    String? language = '',
-    String? currency = '',
-  }) {
-    return ApiManager.instance.makeApiCall(
-      callName: 'Photos API',
-      apiUrl:
-          '${TouristAttractionAPIGroup.baseUrl}/photos?location_id=${locationId}&language=${language}&currency=${currency}',
-      callType: ApiCallType.POST,
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
-        'X-RapidAPI-Host': 'tourist-attraction.p.rapidapi.com',
-      },
-      params: {},
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-    );
-  }
-}
-
-class ReviewsAPICall {
-  Future<ApiCallResponse> call({
-    String? locationId = '',
-    String? language = '',
-    String? currency = '',
-  }) {
-    return ApiManager.instance.makeApiCall(
-      callName: 'Reviews API',
-      apiUrl:
-          '${TouristAttractionAPIGroup.baseUrl}/reviews?location_id=${locationId}&language=${language}&currency=${currency}',
-      callType: ApiCallType.POST,
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
-        'X-RapidAPI-Host': 'tourist-attraction.p.rapidapi.com',
-      },
-      params: {},
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-    );
-  }
-}
-
-/// End Tourist Attraction API Group Code
 
 /// Start Travel Advisor API Group Code
 
@@ -2949,11 +2648,11 @@ class LocationsAutoCompleteAPICall {
     String? place = '',
     String? language = '',
     String? distanceInKm = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Locations Auto Complete API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/locations/v2/auto-complete?query=${place}&lang=${language}&units=${distanceInKm}',
+          '${TravelAdvisorAPIGroup.baseUrl}/locations/v2/auto-complete?query=$place&lang=$language&units=$distanceInKm',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -3051,11 +2750,11 @@ class LocationsSearchAPICall {
   Future<ApiCallResponse> call({
     String? query = '',
     String? updateToken = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "query": "${query}",
-  "updateToken": "${updateToken}"
+  "query": "$query",
+  "updateToken": "$updateToken"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Locations  Search API',
@@ -3179,22 +2878,22 @@ class LocationsListNearbyAPICall {
     double? latitude,
     double? longitude,
     String? attraction = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "contentId": "cc8fc7b8-88ed-47d3-a70e-0de9991f6604",
-  "contentType": "${placetype}",
+  "contentType": "$placetype",
   "filters": [
     {
-      "id": "${placetype}",
+      "id": "$placetype",
       "value": [
-        "${hotel}",
-        "${attraction}",
-        "${restaurant}"
+        "$hotel",
+        "$attraction",
+        "$restaurant"
       ]
     },
     {
-      "id": "${rating}",
+      "id": "$rating",
       "value": [
         "30"
       ]
@@ -3202,12 +2901,12 @@ class LocationsListNearbyAPICall {
   ],
   "boundingBox": {
     "northEastCorner": {
-      "latitude": ${latitude},
-      "longitude": ${longitude}
+      "latitude": $latitude,
+      "longitude": $longitude
     },
     "southWestCorner": {
-      "latitude": ${latitude},
-      "longitude": ${longitude}
+      "latitude": $latitude,
+      "longitude": $longitude
     }
   }
 }''';
@@ -3466,11 +3165,11 @@ class LocationsListNearbyAPICall {
 class LocationsAutoCompleteDeprecatedAPICall {
   Future<ApiCallResponse> call({
     String? place = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Locations Auto Complete Deprecated API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/locations/auto-complete?query=${place}',
+          '${TravelAdvisorAPIGroup.baseUrl}/locations/auto-complete?query=$place',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -3738,11 +3437,11 @@ class LocationsAutoCompleteDeprecatedAPICall {
 class LocationsSearchDeprecatingAPICall {
   Future<ApiCallResponse> call({
     String? place = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Locations Search Deprecating API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/locations/search?query=${place}',
+          '${TravelAdvisorAPIGroup.baseUrl}/locations/search?query=$place',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -4120,14 +3819,14 @@ class HotelFilterListAPICall {
     String? sort = '',
     String? sortOrder = '',
     int? noOfPersons,
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "geoId": ${geoId},
-  "checkIn": "${checkIn}",
-  "checkOut": "${checkOut}",
-  "sort": "${sort}",
-  "sortOrder": "${sortOrder}",
+  "geoId": $geoId,
+  "checkIn": "$checkIn",
+  "checkOut": "$checkOut",
+  "sort": "$sort",
+  "sortOrder": "$sortOrder",
   "filters": [
     {
       "id": "deals",
@@ -4182,13 +3881,13 @@ class HotelFilterListAPICall {
   ],
   "rooms": [
     {
-      "adults": ${noOfPersons},
+      "adults": $noOfPersons,
       "childrenAges": [
         2
       ]
     },
     {
-      "adults": ${noOfPersons},
+      "adults": $noOfPersons,
       "childrenAges": [
         3
       ]
@@ -4386,14 +4085,14 @@ class HotelsListAPICall {
     int? noOfPersons,
     double? latitude,
     double? longitude,
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "geoId": ${geoId},
-  "checkIn": "${checkIn}",
-  "checkOut": "${checkOut}",
-  "sort": "${sort}",
-  "sortOrder": "${sortOrder}",
+  "geoId": $geoId,
+  "checkIn": "$checkIn",
+  "checkOut": "$checkOut",
+  "sort": "$sort",
+  "sortOrder": "$sortOrder",
   "filters": [
     {
       "id": "deals",
@@ -4448,13 +4147,13 @@ class HotelsListAPICall {
   ],
   "rooms": [
     {
-      "adults": ${noOfPersons},
+      "adults": $noOfPersons,
       "childrenAges": [
         2
       ]
     },
     {
-      "adults": ${noOfPersons},
+      "adults": $noOfPersons,
       "childrenAges": [
         3
       ]
@@ -4462,12 +4161,12 @@ class HotelsListAPICall {
   ],
   "boundingBox": {
     "northEastCorner": {
-      "latitude": ${latitude},
-      "longitude": ${longitude}
+      "latitude": $latitude,
+      "longitude": $longitude
     },
     "southWestCorner": {
-      "latitude": ${latitude},
-      "longitude": ${longitude}
+      "latitude": $latitude,
+      "longitude": $longitude
     }
   },
   "updateToken": ""
@@ -4496,21 +4195,21 @@ class HotelsGetDetailsAPICall {
     String? checkIn = '',
     String? checkOut = '',
     int? noOfPersons,
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "contentId": "7307357",
-  "checkIn": "${checkIn}",
-  "checkOut": "${checkOut}",
+  "checkIn": "$checkIn",
+  "checkOut": "$checkOut",
   "rooms": [
     {
-      "adults": ${noOfPersons},
+      "adults": $noOfPersons,
       "childrenAges": [
         2
       ]
     },
     {
-      "adults": ${noOfPersons},
+      "adults": $noOfPersons,
       "childrenAges": [
         3
       ]
@@ -4541,15 +4240,15 @@ class HotelsGetOffersAPICall {
     String? checkIn = '',
     String? chechOut = '',
     int? noOfPersons,
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "detailId": 181939,
-  "checkIn": "${checkIn}",
-  "checkOut": "${chechOut}",
+  "checkIn": "$checkIn",
+  "checkOut": "$chechOut",
   "rooms": [
     {
-      "adults": ${noOfPersons},
+      "adults": $noOfPersons,
       "childrenAges": []
     }
   ],
@@ -4578,11 +4277,11 @@ class HotelsListByLatLngAPICall {
   Future<ApiCallResponse> call({
     double? latitude,
     double? longitude,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Hotels List By LatLng API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/hotels/list-by-latlng?latitude=${latitude}&longitude=${longitude}',
+          '${TravelAdvisorAPIGroup.baseUrl}/hotels/list-by-latlng?latitude=$latitude&longitude=$longitude',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -4603,11 +4302,11 @@ class HotelsListInBoundaryAPICall {
     double? blLongitude,
     double? trLongitude,
     double? trLatitude,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Hotels List In Boundary API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/hotels/list-in-boundary?bl_latitude=${blLatitude}&bl_longitude=${blLongitude}&tr_longitude=${trLongitude}&tr_latitude=${trLatitude}',
+          '${TravelAdvisorAPIGroup.baseUrl}/hotels/list-in-boundary?bl_latitude=$blLatitude&bl_longitude=$blLongitude&tr_longitude=$trLongitude&tr_latitude=$trLatitude',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -4629,11 +4328,11 @@ class HotelsListAPIDeprecatedCall {
     int? rooms,
     int? nights,
     String? lang = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Hotels List API Deprecated ',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/hotels/list?location_id=${locationId}&adults=${adults}&rooms=${rooms}&nights=${nights}&lang=${lang}',
+          '${TravelAdvisorAPIGroup.baseUrl}/hotels/list?location_id=$locationId&adults=$adults&rooms=$rooms&nights=$nights&lang=$lang',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -4651,11 +4350,11 @@ class HotelsListAPIDeprecatedCall {
 class HotelFiltersListAPIDeprecatedCall {
   Future<ApiCallResponse> call({
     int? locationId,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Hotel Filters List API Deprecated',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/hotel-filters/list?location_id=${locationId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/hotel-filters/list?location_id=$locationId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -4673,11 +4372,11 @@ class HotelFiltersListAPIDeprecatedCall {
 class HotelsGetDetailsAPIDeprecatedCall {
   Future<ApiCallResponse> call({
     int? locationId,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Hotels Get Details API Deprecated',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/hotels/get-details?location_id=${locationId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/hotels/get-details?location_id=$locationId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -4690,15 +4389,101 @@ class HotelsGetDetailsAPIDeprecatedCall {
       cache: false,
     );
   }
+
+  dynamic locationid(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].location_id''',
+        true,
+      );
+  dynamic name(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].name''',
+        true,
+      );
+  dynamic latitude(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].latitude''',
+        true,
+      );
+  dynamic longitude(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].longitude''',
+        true,
+      );
+  dynamic locationstring(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].location_string''',
+        true,
+      );
+  dynamic imagesoriginalurl(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].photo.images.original.url''',
+        true,
+      );
+  dynamic photoid(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].photo.id''',
+        true,
+      );
+  dynamic ranking(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].ranking''',
+        true,
+      );
+  dynamic rating(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].rating''',
+        true,
+      );
+  dynamic price(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].price''',
+        true,
+      );
+  dynamic hotelclass(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].hotel_class''',
+        true,
+      );
+  dynamic description(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].description''',
+        true,
+      );
+  dynamic phone(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].phone''',
+        true,
+      );
+  dynamic website(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].website''',
+        true,
+      );
+  dynamic email(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].email''',
+        true,
+      );
+  dynamic address(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].address''',
+        true,
+      );
+  dynamic roomtipstext(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].room_tips[:].text''',
+        true,
+      );
 }
 
 class RestaurantFiltersListAPICall {
   Future<ApiCallResponse> call({
     int? geoId,
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "geoId": ${geoId},
+  "geoId": $geoId,
   "partySize": 2,
   "reservationTime": "2022-03-07T20:00",
   "sort": "RELEVANCE",
@@ -4761,10 +4546,10 @@ class RestaurantFiltersListAPICall {
 class RestaurantsListAPICall {
   Future<ApiCallResponse> call({
     int? geoId,
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "geoId": ${geoId},
+  "geoId": $geoId,
   "partySize": 2,
   "reservationTime": "2022-03-07T20:00",
   "sort": "POPULARITY",
@@ -4812,12 +4597,12 @@ class RestaurantsGetDetailsAPICall {
   Future<ApiCallResponse> call({
     String? contentId = '',
     int? partySize,
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "contentId": "${contentId}",
+  "contentId": "$contentId",
   "reservationTime": "2022-03-07T20:00",
-  "partySize": ${partySize}
+  "partySize": $partySize
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Restaurants Get Details API',
@@ -4842,11 +4627,11 @@ class RestaurantsListByLatLngAPICall {
   Future<ApiCallResponse> call({
     double? latitude,
     double? longitude,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Restaurants List By LatLng API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/restaurants/list-by-latlng?latitude=${latitude}&longitude=${longitude}',
+          '${TravelAdvisorAPIGroup.baseUrl}/restaurants/list-by-latlng?latitude=$latitude&longitude=$longitude',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -4867,11 +4652,11 @@ class RestaurantsListInBoundaryAPICall {
     double? blLongitude,
     double? trLatitude,
     double? trLongitude,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Restaurants List In Boundary API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/restaurants/list-in-boundary?bl_latitude=${blLatitude}&bl_longitude=${blLongitude}&tr_latitude=${trLatitude}&tr_longitude=${trLongitude}',
+          '${TravelAdvisorAPIGroup.baseUrl}/restaurants/list-in-boundary?bl_latitude=$blLatitude&bl_longitude=$blLongitude&tr_latitude=$trLatitude&tr_longitude=$trLongitude',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -4889,11 +4674,11 @@ class RestaurantsListInBoundaryAPICall {
 class RestaurantsListAPIDeprecatedCall {
   Future<ApiCallResponse> call({
     int? locationId,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Restaurants List API Deprecated',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/restaurants/list?location_id=${locationId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/restaurants/list?location_id=$locationId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -4911,11 +4696,11 @@ class RestaurantsListAPIDeprecatedCall {
 class RestaurantsGetDetailsAPIDeprecatedCall {
   Future<ApiCallResponse> call({
     int? locationId,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Restaurants Get Details API Deprecated',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/restaurants/get-details?location_id=${locationId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/restaurants/get-details?location_id=$locationId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -4933,10 +4718,10 @@ class RestaurantsGetDetailsAPIDeprecatedCall {
 class AttractionFiltersListAPICall {
   Future<ApiCallResponse> call({
     int? geoId,
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "geoId": ${geoId},
+  "geoId": $geoId,
   "startDate": "2022-03-10",
   "endDate": "2022-03-15",
   "pax": [
@@ -4990,10 +4775,10 @@ class AttractionFiltersListAPICall {
 class AttractionsListAPICall {
   Future<ApiCallResponse> call({
     int? geoId,
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "geoId": ${geoId},
+  "geoId": $geoId,
   "startDate": "2022-03-10",
   "endDate": "2022-03-15",
   "pax": [
@@ -5061,12 +4846,12 @@ class AttractionsGetDetailsAPICall {
     String? startDate = '',
     String? endDate = '',
     String? pax = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "contentId": "${contentId}",
-  "startDate": "${startDate}",
-  "endDate": "${endDate}",
+  "contentId": "$contentId",
+  "startDate": "$startDate",
+  "endDate": "$endDate",
   "pax": [
     {
       "ageBand": "ADULT",
@@ -5096,10 +4881,10 @@ class AttractionsGetDetailsAPICall {
 class AttractionsGetOptionsAPICall {
   Future<ApiCallResponse> call({
     String? contentId = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "contentId": "${contentId}",
+  "contentId": "$contentId",
   "contentType": "attraction_product",
   "startDate": "2022-03-01",
   "endDate": "2022-03-02",
@@ -5134,11 +4919,11 @@ class AttractionsListByLatLngAPICall {
   Future<ApiCallResponse> call({
     double? longitude,
     double? latitude,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Attractions List By LatLng API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/attractions/list-by-latlng? longitude=${longitude}& latitude=${latitude}',
+          '${TravelAdvisorAPIGroup.baseUrl}/attractions/list-by-latlng? longitude=$longitude& latitude=$latitude',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5159,11 +4944,11 @@ class AttractionsListInBoundaryAPICall {
     double? blLongitude,
     double? trLatitude,
     double? trLongitude,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Attractions List In Boundary API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/attractions/list-in-boundary?bl_latitude=${blLatitude}& bl_longitude=${blLongitude}&tr_latitude=${trLatitude}& tr_longitude=${trLongitude}',
+          '${TravelAdvisorAPIGroup.baseUrl}/attractions/list-in-boundary?bl_latitude=$blLatitude& bl_longitude=$blLongitude&tr_latitude=$trLatitude& tr_longitude=$trLongitude',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5181,11 +4966,11 @@ class AttractionsListInBoundaryAPICall {
 class AttractionsListAPIDepracatedCall {
   Future<ApiCallResponse> call({
     int? locationId,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Attractions List API Depracated',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/attractions/list?location_id=${locationId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/attractions/list?location_id=$locationId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5338,11 +5123,11 @@ class AttractionsListAPIDepracatedCall {
 class AttractionsGetDetailsAPIDeprecatedCall {
   Future<ApiCallResponse> call({
     int? locationId,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Attractions Get Details API Deprecated',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/attractions/get-details?location_id=${locationId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/attractions/get-details?location_id=$locationId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5355,17 +5140,42 @@ class AttractionsGetDetailsAPIDeprecatedCall {
       cache: false,
     );
   }
+
+  dynamic locationid(dynamic response) => getJsonField(
+        response,
+        r'''$.location_id''',
+      );
+  dynamic latitude(dynamic response) => getJsonField(
+        response,
+        r'''$.latitude''',
+      );
+  dynamic longitude(dynamic response) => getJsonField(
+        response,
+        r'''$.longitude''',
+      );
+  dynamic locationstring(dynamic response) => getJsonField(
+        response,
+        r'''$.location_string''',
+      );
+  dynamic imagesurl(dynamic response) => getJsonField(
+        response,
+        r'''$.photo.images.original.url''',
+      );
+  dynamic photocaption(dynamic response) => getJsonField(
+        response,
+        r'''$.photo.caption''',
+      );
 }
 
 class ReviewsListAPICall {
   Future<ApiCallResponse> call({
     String? contentType = '',
     int? detailId,
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "contentType": "${contentType}",
-  "detailId": ${detailId},
+  "contentType": "$contentType",
+  "detailId": $detailId,
   "pagee": 0,
   "filters": [
     {
@@ -5411,12 +5221,12 @@ class ReviewsListAPICall {
 class PhotosListAPICall {
   Future<ApiCallResponse> call({
     String? locationIdStr = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "albumId": "",
   "galleryConfig": "ar",
-  "locationIdStr": "${locationIdStr}",
+  "locationIdStr": "$locationIdStr",
   "offset": 0,
   "updateToken": ""
 }''';
@@ -5443,11 +5253,11 @@ class QuestionsListAPICall {
   Future<ApiCallResponse> call({
     String? contentId = '',
     String? contentType = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "contentType": "${contentType}",
-  "contentId": "${contentType}",
+  "contentType": "$contentType",
+  "contentId": "$contentType",
   "pagee": 0,
   "updateToken": ""
 }''';
@@ -5475,12 +5285,12 @@ class AnswersListAPICall {
     String? contentType = '',
     String? contentId = '',
     String? questionId = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "contentType": "${contentType}",
-  "contentId": "${contentId}",
-  "questionId": "${questionId}",
+  "contentType": "$contentType",
+  "contentId": "$contentId",
+  "questionId": "$questionId",
   "pagee": 0,
   "updateToken": ""
 }''';
@@ -5506,11 +5316,11 @@ class AnswersListAPICall {
 class KeywordsListAPICall {
   Future<ApiCallResponse> call({
     int? locationId,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Keywords List API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/keywords/list?location_id=${locationId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/keywords/list?location_id=$locationId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5528,11 +5338,11 @@ class KeywordsListAPICall {
 class TipsListAPICall {
   Future<ApiCallResponse> call({
     int? locationId,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Tips List API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/tips/list?location_id=${locationId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/tips/list?location_id=$locationId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5550,11 +5360,11 @@ class TipsListAPICall {
 class ReviewsListDeprecatedCall {
   Future<ApiCallResponse> call({
     int? locationId,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Reviews List Deprecated',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/reviews/list?location_id=${locationId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/reviews/list?location_id=$locationId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5572,11 +5382,11 @@ class ReviewsListDeprecatedCall {
 class PhotosListAPIDeprecatedCall {
   Future<ApiCallResponse> call({
     int? locationId,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Photos List API Deprecated',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/photos/list?location_id=${locationId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/photos/list?location_id=$locationId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5594,11 +5404,11 @@ class PhotosListAPIDeprecatedCall {
 class QuestionsListAPIDeprecatedCall {
   Future<ApiCallResponse> call({
     int? locationId,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Questions List API Deprecated',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/questions/list?location_id=${locationId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/questions/list?location_id=$locationId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5616,11 +5426,11 @@ class QuestionsListAPIDeprecatedCall {
 class AnswersListDeprecatedAPICall {
   Future<ApiCallResponse> call({
     int? questionId,
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Answers List Deprecated API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/answers/list?question_id=${questionId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/answers/list?question_id=$questionId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5638,10 +5448,10 @@ class AnswersListDeprecatedAPICall {
 class AirportsSearchAPICall {
   Future<ApiCallResponse> call({
     String? query = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Airports Search API',
-      apiUrl: '${TravelAdvisorAPIGroup.baseUrl}/airports/search?query=${query}',
+      apiUrl: '${TravelAdvisorAPIGroup.baseUrl}/airports/search?query=$query',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5661,11 +5471,11 @@ class FlightsCreateSessionAPICall {
     String? origination = '',
     String? destination = '',
     String? date = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Flights Create Session API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/flights/create-session?o1=${origination}&d1=${destination}&dd1=${date}',
+          '${TravelAdvisorAPIGroup.baseUrl}/flights/create-session?o1=$origination&d1=$destination&dd1=$date',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5683,10 +5493,10 @@ class FlightsCreateSessionAPICall {
 class FlightsPollAPICall {
   Future<ApiCallResponse> call({
     String? sid = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Flights Poll API',
-      apiUrl: '${TravelAdvisorAPIGroup.baseUrl}/flights/poll?sid=${sid}',
+      apiUrl: '${TravelAdvisorAPIGroup.baseUrl}/flights/poll?sid=$sid',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5708,11 +5518,11 @@ class FlightsGetBookingUrlAPICall {
     String? id = '',
     String? orig = '',
     String? searchId = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Flights Get Booking Url API',
       apiUrl:
-          '${TravelAdvisorAPIGroup.baseUrl}/flights/get-booking-url?searchHash=${searchHash}&Dest=${dest}&id=${id}&Orig=${orig}&searchId=${searchId}',
+          '${TravelAdvisorAPIGroup.baseUrl}/flights/get-booking-url?searchHash=$searchHash&Dest=$dest&id=$id&Orig=$orig&searchId=$searchId',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5730,10 +5540,10 @@ class FlightsGetBookingUrlAPICall {
 class AttractionProductListAPICall {
   Future<ApiCallResponse> call({
     int? geoId,
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "geoId": ${geoId},
+  "geoId": $geoId,
   "startDate": "2022-03-29",
   "endDate": "2022-03-30",
   "pax": [
@@ -5776,10 +5586,10 @@ class AttractionProductListAPICall {
 class AttractionProductFiltersListAPICall {
   Future<ApiCallResponse> call({
     int? geoId,
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "geoId": ${geoId},
+  "geoId": $geoId,
   "startDate": "2022-03-29",
   "endDate": "2022-03-30",
   "pax": [
@@ -5825,12 +5635,12 @@ class AttractionProductsGetDetailsAPICall {
     String? startDate = '',
     String? endDate = '',
     String? pax = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "contentId": "${contentId}",
-  "startDate": "${startDate}",
-  "endDate": "${endDate}",
+  "contentId": "$contentId",
+  "startDate": "$startDate",
+  "endDate": "$endDate",
   "pax": [
     {
       "ageBand": "ADULT",
@@ -5861,10 +5671,10 @@ class AttractionProductsGetDetailsAPICall {
 class AttractionProductsCheckAvailabilityAPICall {
   Future<ApiCallResponse> call({
     String? contentId = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
-  "contentId": "${contentId}",
+  "contentId": "$contentId",
   "contentType": "attraction_product",
   "startDate": "2022-03-29",
   "endDate": "2022-03-30",
@@ -5914,10 +5724,10 @@ class GeocodingAPIGroup {
 class GeocodingAPICall {
   Future<ApiCallResponse> call({
     String? address = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Geocoding API',
-      apiUrl: '${GeocodingAPIGroup.baseUrl}/Geocode?address=${address}',
+      apiUrl: '${GeocodingAPIGroup.baseUrl}/Geocode?address=$address',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5935,11 +5745,11 @@ class GeocodingAPICall {
 class ReverseGeocodingAPICall {
   Future<ApiCallResponse> call({
     String? location = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'ReverseGeocoding API',
       apiUrl:
-          '${GeocodingAPIGroup.baseUrl}/ReverseGeocode?location=${location}',
+          '${GeocodingAPIGroup.baseUrl}/ReverseGeocode?location=$location',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5971,11 +5781,11 @@ class TrueWayPlacesAPIGroup {
 class PlacesNearbyAPICall {
   Future<ApiCallResponse> call({
     String? location = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'PlacesNearby API',
       apiUrl:
-          '${TrueWayPlacesAPIGroup.baseUrl}/FindPlacesNearby?location=${location}',
+          '${TrueWayPlacesAPIGroup.baseUrl}/FindPlacesNearby?location=$location',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -5993,10 +5803,10 @@ class PlacesNearbyAPICall {
 class PlaceByTextAPICall {
   Future<ApiCallResponse> call({
     String? text = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Place By Text API',
-      apiUrl: '${TrueWayPlacesAPIGroup.baseUrl}/FindPlaceByText?text=${text}',
+      apiUrl: '${TrueWayPlacesAPIGroup.baseUrl}/FindPlaceByText?text=$text',
       callType: ApiCallType.GET,
       headers: {
         'X-RapidAPI-Key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
@@ -6013,21 +5823,195 @@ class PlaceByTextAPICall {
 
 /// End TrueWay Places API Group Code
 
-class PlacesAPICall {
-  static Future<ApiCallResponse> call({
-    String? getPlaces = '',
-  }) {
+/// Start Four Square API Group Code
+
+class FourSquareAPIGroup {
+  static String baseUrl = 'https://api.foursquare.com/v3/places';
+  static Map<String, String> headers = {
+    'Authorization': 'fsq3j328mzxgCT8PG98ydThuB3E1HHoodBIDOIeeo0pnq7U=',
+    'accept': 'application/json',
+  };
+  static SearchAPICall searchAPICall = SearchAPICall();
+  static GetDetailsAPICall getDetailsAPICall = GetDetailsAPICall();
+  static PlaceMatchAPICall placeMatchAPICall = PlaceMatchAPICall();
+}
+
+class SearchAPICall {
+  Future<ApiCallResponse> call({
+    String? query = '',
+    String? lat = '',
+    String? long = '',
+    String? opennow = '',
+    String? distance = '',
+  }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'Places API',
-      apiUrl: 'https://travel-places.p.rapidapi.com/',
-      callType: ApiCallType.POST,
+      callName: 'Search API',
+      apiUrl:
+          '${FourSquareAPIGroup.baseUrl}/search?query=$query&ll=$lat,$long&open_now=$opennow&sort=$distance',
+      callType: ApiCallType.GET,
       headers: {
-        'x-rapidapi-key': '930c16ec5emsh155453517aa6d2dp1ef161jsn2a790a1b4772',
-        'x-rapidapi-host': 'travel-places.p.rapidapi.com',
-        'Content-Type': 'application/json',
+        'Authorization': 'fsq3j328mzxgCT8PG98ydThuB3E1HHoodBIDOIeeo0pnq7U=',
+        'accept': 'application/json',
       },
       params: {},
-      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic fsqid(dynamic response) => getJsonField(
+        response,
+        r'''$.results[:].fsq_id''',
+      );
+}
+
+class GetDetailsAPICall {
+  Future<ApiCallResponse> call({
+    String? fsqid = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Details API',
+      apiUrl: '${FourSquareAPIGroup.baseUrl}/52f18036498e071bbb86adf8',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'fsq3j328mzxgCT8PG98ydThuB3E1HHoodBIDOIeeo0pnq7U=',
+        'accept': 'application/json',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic fsqid(dynamic response) => getJsonField(
+        response,
+        r'''$.fsq_id''',
+      );
+  dynamic categoriesid(dynamic response) => getJsonField(
+        response,
+        r'''$.categories[:].id''',
+      );
+  dynamic categoriesname(dynamic response) => getJsonField(
+        response,
+        r'''$.categories[:].name''',
+      );
+  dynamic categoriesiconprefix(dynamic response) => getJsonField(
+        response,
+        r'''$.categories[:].icon.prefix''',
+      );
+  dynamic categoriesiconsuffix(dynamic response) => getJsonField(
+        response,
+        r'''$.categories[:].icon.suffix''',
+      );
+  dynamic closedbucket(dynamic response) => getJsonField(
+        response,
+        r'''$.closed_bucket''',
+      );
+  dynamic latitude(dynamic response) => getJsonField(
+        response,
+        r'''$.geocodes.main.latitude''',
+      );
+  dynamic longitude(dynamic response) => getJsonField(
+        response,
+        r'''$.geocodes.main.longitude''',
+      );
+  dynamic address(dynamic response) => getJsonField(
+        response,
+        r'''$.location.address''',
+      );
+  dynamic country(dynamic response) => getJsonField(
+        response,
+        r'''$.location.country''',
+      );
+  dynamic formattedaddress(dynamic response) => getJsonField(
+        response,
+        r'''$.location.formatted_address''',
+      );
+  dynamic locality(dynamic response) => getJsonField(
+        response,
+        r'''$.location.locality''',
+      );
+  dynamic region(dynamic response) => getJsonField(
+        response,
+        r'''$.location.region''',
+      );
+  dynamic name(dynamic response) => getJsonField(
+        response,
+        r'''$.name''',
+      );
+  dynamic timezone(dynamic response) => getJsonField(
+        response,
+        r'''$.timezone''',
+      );
+}
+
+class PlaceMatchAPICall {
+  Future<ApiCallResponse> call({
+    String? place = '',
+    String? city = '',
+    String? lat = '',
+    String? long = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Place Match API',
+      apiUrl:
+          '${FourSquareAPIGroup.baseUrl}/match?name=$place&city=$city&ll=$lat,$long',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'fsq3j328mzxgCT8PG98ydThuB3E1HHoodBIDOIeeo0pnq7U=',
+        'accept': 'application/json',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+/// End Four Square API Group Code
+
+class GeoApifyAutocompleteAPICall {
+  static Future<ApiCallResponse> call({
+    String? placename = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'GeoApify Autocomplete  API',
+      apiUrl:
+          'https://api.geoapify.com/v1/geocode/autocomplete?text=$placename',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'apiKey': "e7c3c93b46a542928e8aecba02a830d8",
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class GeoApifyPlacesAPICall {
+  static Future<ApiCallResponse> call({
+    double? long,
+    double? lat,
+    int? radiusMeters,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'GeoApify Places API',
+      apiUrl:
+          'https://api.geoapify.com/v2/places?categories=tourism&filter=circle:$long,$lat,$radiusMeters&limit=20',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'apiKey': "aa75eba02ff748dca8c26a043ee2a977",
+      },
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

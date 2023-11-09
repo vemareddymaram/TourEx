@@ -3,16 +3,14 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class RatingsNReviewsRecord extends FirestoreRecord {
   RatingsNReviewsRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
@@ -25,6 +23,11 @@ class RatingsNReviewsRecord extends FirestoreRecord {
   DateTime? _createdAt;
   DateTime? get createdAt => _createdAt;
   bool hasCreatedAt() => _createdAt != null;
+
+  // "is_review_photo_uploaded" field.
+  bool? _isReviewPhotoUploaded;
+  bool get isReviewPhotoUploaded => _isReviewPhotoUploaded ?? false;
+  bool hasIsReviewPhotoUploaded() => _isReviewPhotoUploaded != null;
 
   // "photo_url" field.
   DocumentReference? _photoUrl;
@@ -51,26 +54,21 @@ class RatingsNReviewsRecord extends FirestoreRecord {
   List<String> get reviewPhotoUrl => _reviewPhotoUrl ?? const [];
   bool hasReviewPhotoUrl() => _reviewPhotoUrl != null;
 
-  // "user_id" field.
-  DocumentReference? _userId;
-  DocumentReference? get userId => _userId;
-  bool hasUserId() => _userId != null;
-
-  // "is_review_photo_uploaded" field.
-  bool? _isReviewPhotoUploaded;
-  bool get isReviewPhotoUploaded => _isReviewPhotoUploaded ?? false;
-  bool hasIsReviewPhotoUploaded() => _isReviewPhotoUploaded != null;
+  // "uid" field.
+  DocumentReference? _uid;
+  DocumentReference? get uid => _uid;
+  bool hasUid() => _uid != null;
 
   void _initializeFields() {
     _comment = snapshotData['comment'] as String?;
     _createdAt = snapshotData['created_at'] as DateTime?;
+    _isReviewPhotoUploaded = snapshotData['is_review_photo_uploaded'] as bool?;
     _photoUrl = snapshotData['photo_url'] as DocumentReference?;
     _placeName = snapshotData['place_name'] as DocumentReference?;
     _rating = castToType<double>(snapshotData['rating']);
     _reviewId = snapshotData['review_id'] as String?;
     _reviewPhotoUrl = getDataList(snapshotData['review_photo_url']);
-    _userId = snapshotData['user_id'] as DocumentReference?;
-    _isReviewPhotoUploaded = snapshotData['is_review_photo_uploaded'] as bool?;
+    _uid = snapshotData['uid'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -110,23 +108,23 @@ class RatingsNReviewsRecord extends FirestoreRecord {
 Map<String, dynamic> createRatingsNReviewsRecordData({
   String? comment,
   DateTime? createdAt,
+  bool? isReviewPhotoUploaded,
   DocumentReference? photoUrl,
   DocumentReference? placeName,
   double? rating,
   String? reviewId,
-  DocumentReference? userId,
-  bool? isReviewPhotoUploaded,
+  DocumentReference? uid,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'comment': comment,
       'created_at': createdAt,
+      'is_review_photo_uploaded': isReviewPhotoUploaded,
       'photo_url': photoUrl,
       'place_name': placeName,
       'rating': rating,
       'review_id': reviewId,
-      'user_id': userId,
-      'is_review_photo_uploaded': isReviewPhotoUploaded,
+      'uid': uid,
     }.withoutNulls,
   );
 
@@ -142,26 +140,26 @@ class RatingsNReviewsRecordDocumentEquality
     const listEquality = ListEquality();
     return e1?.comment == e2?.comment &&
         e1?.createdAt == e2?.createdAt &&
+        e1?.isReviewPhotoUploaded == e2?.isReviewPhotoUploaded &&
         e1?.photoUrl == e2?.photoUrl &&
         e1?.placeName == e2?.placeName &&
         e1?.rating == e2?.rating &&
         e1?.reviewId == e2?.reviewId &&
         listEquality.equals(e1?.reviewPhotoUrl, e2?.reviewPhotoUrl) &&
-        e1?.userId == e2?.userId &&
-        e1?.isReviewPhotoUploaded == e2?.isReviewPhotoUploaded;
+        e1?.uid == e2?.uid;
   }
 
   @override
   int hash(RatingsNReviewsRecord? e) => const ListEquality().hash([
         e?.comment,
         e?.createdAt,
+        e?.isReviewPhotoUploaded,
         e?.photoUrl,
         e?.placeName,
         e?.rating,
         e?.reviewId,
         e?.reviewPhotoUrl,
-        e?.userId,
-        e?.isReviewPhotoUploaded
+        e?.uid
       ]);
 
   @override

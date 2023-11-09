@@ -3,16 +3,14 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class LikeNDislikeRecord extends FirestoreRecord {
   LikeNDislikeRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
@@ -36,10 +34,10 @@ class LikeNDislikeRecord extends FirestoreRecord {
   String get type => _type ?? '';
   bool hasType() => _type != null;
 
-  // "user_id" field.
-  DocumentReference? _userId;
-  DocumentReference? get userId => _userId;
-  bool hasUserId() => _userId != null;
+  // "uid" field.
+  DocumentReference? _uid;
+  DocumentReference? get uid => _uid;
+  bool hasUid() => _uid != null;
 
   // "review_id" field.
   DocumentReference? _reviewId;
@@ -51,7 +49,7 @@ class LikeNDislikeRecord extends FirestoreRecord {
     _likeDislikeId = snapshotData['like_dislike_id'] as String?;
     _noOfLikes = castToType<double>(snapshotData['no_of_likes']);
     _type = snapshotData['type'] as String?;
-    _userId = snapshotData['user_id'] as DocumentReference?;
+    _uid = snapshotData['uid'] as DocumentReference?;
     _reviewId = snapshotData['review_id'] as DocumentReference?;
   }
 
@@ -94,7 +92,7 @@ Map<String, dynamic> createLikeNDislikeRecordData({
   String? likeDislikeId,
   double? noOfLikes,
   String? type,
-  DocumentReference? userId,
+  DocumentReference? uid,
   DocumentReference? reviewId,
 }) {
   final firestoreData = mapToFirestore(
@@ -103,7 +101,7 @@ Map<String, dynamic> createLikeNDislikeRecordData({
       'like_dislike_id': likeDislikeId,
       'no_of_likes': noOfLikes,
       'type': type,
-      'user_id': userId,
+      'uid': uid,
       'review_id': reviewId,
     }.withoutNulls,
   );
@@ -121,7 +119,7 @@ class LikeNDislikeRecordDocumentEquality
         e1?.likeDislikeId == e2?.likeDislikeId &&
         e1?.noOfLikes == e2?.noOfLikes &&
         e1?.type == e2?.type &&
-        e1?.userId == e2?.userId &&
+        e1?.uid == e2?.uid &&
         e1?.reviewId == e2?.reviewId;
   }
 
@@ -131,7 +129,7 @@ class LikeNDislikeRecordDocumentEquality
         e?.likeDislikeId,
         e?.noOfLikes,
         e?.type,
-        e?.userId,
+        e?.uid,
         e?.reviewId
       ]);
 

@@ -3,16 +3,14 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class WeatherRecord extends FirestoreRecord {
   WeatherRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
@@ -21,15 +19,15 @@ class WeatherRecord extends FirestoreRecord {
   DateTime? get createdAt => _createdAt;
   bool hasCreatedAt() => _createdAt != null;
 
-  // "place_name" field.
-  DocumentReference? _placeName;
-  DocumentReference? get placeName => _placeName;
-  bool hasPlaceName() => _placeName != null;
-
   // "humidity" field.
   String? _humidity;
   String get humidity => _humidity ?? '';
   bool hasHumidity() => _humidity != null;
+
+  // "place_name" field.
+  DocumentReference? _placeName;
+  DocumentReference? get placeName => _placeName;
+  bool hasPlaceName() => _placeName != null;
 
   // "temperature" field.
   String? _temperature;
@@ -53,8 +51,8 @@ class WeatherRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _createdAt = snapshotData['created_at'] as DateTime?;
-    _placeName = snapshotData['place_name'] as DocumentReference?;
     _humidity = snapshotData['humidity'] as String?;
+    _placeName = snapshotData['place_name'] as DocumentReference?;
     _temperature = snapshotData['temperature'] as String?;
     _weatherConditionIcon = snapshotData['weather_condition_icon'] as String?;
     _weatherId = snapshotData['weather_id'] as String?;
@@ -97,8 +95,8 @@ class WeatherRecord extends FirestoreRecord {
 
 Map<String, dynamic> createWeatherRecordData({
   DateTime? createdAt,
-  DocumentReference? placeName,
   String? humidity,
+  DocumentReference? placeName,
   String? temperature,
   String? weatherConditionIcon,
   String? weatherId,
@@ -107,8 +105,8 @@ Map<String, dynamic> createWeatherRecordData({
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'created_at': createdAt,
-      'place_name': placeName,
       'humidity': humidity,
+      'place_name': placeName,
       'temperature': temperature,
       'weather_condition_icon': weatherConditionIcon,
       'weather_id': weatherId,
@@ -125,8 +123,8 @@ class WeatherRecordDocumentEquality implements Equality<WeatherRecord> {
   @override
   bool equals(WeatherRecord? e1, WeatherRecord? e2) {
     return e1?.createdAt == e2?.createdAt &&
-        e1?.placeName == e2?.placeName &&
         e1?.humidity == e2?.humidity &&
+        e1?.placeName == e2?.placeName &&
         e1?.temperature == e2?.temperature &&
         e1?.weatherConditionIcon == e2?.weatherConditionIcon &&
         e1?.weatherId == e2?.weatherId &&
@@ -136,8 +134,8 @@ class WeatherRecordDocumentEquality implements Equality<WeatherRecord> {
   @override
   int hash(WeatherRecord? e) => const ListEquality().hash([
         e?.createdAt,
-        e?.placeName,
         e?.humidity,
+        e?.placeName,
         e?.temperature,
         e?.weatherConditionIcon,
         e?.weatherId,

@@ -3,16 +3,14 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class FavoritesRecord extends FirestoreRecord {
   FavoritesRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
@@ -26,10 +24,10 @@ class FavoritesRecord extends FirestoreRecord {
   String get favoriteId => _favoriteId ?? '';
   bool hasFavoriteId() => _favoriteId != null;
 
-  // "user_id" field.
-  DocumentReference? _userId;
-  DocumentReference? get userId => _userId;
-  bool hasUserId() => _userId != null;
+  // "uid" field.
+  DocumentReference? _uid;
+  DocumentReference? get uid => _uid;
+  bool hasUid() => _uid != null;
 
   // "place_image_urls" field.
   DocumentReference? _placeImageUrls;
@@ -59,7 +57,7 @@ class FavoritesRecord extends FirestoreRecord {
   void _initializeFields() {
     _createdAt = snapshotData['created_at'] as DateTime?;
     _favoriteId = snapshotData['favorite_id'] as String?;
-    _userId = snapshotData['user_id'] as DocumentReference?;
+    _uid = snapshotData['uid'] as DocumentReference?;
     _placeImageUrls = snapshotData['place_image_urls'] as DocumentReference?;
     _placeIsFavorite = snapshotData['place_is_favorite'] as DocumentReference?;
     _placeName = snapshotData['place_name'] as DocumentReference?;
@@ -104,7 +102,7 @@ class FavoritesRecord extends FirestoreRecord {
 Map<String, dynamic> createFavoritesRecordData({
   DateTime? createdAt,
   String? favoriteId,
-  DocumentReference? userId,
+  DocumentReference? uid,
   DocumentReference? placeImageUrls,
   DocumentReference? placeIsFavorite,
   DocumentReference? placeName,
@@ -115,7 +113,7 @@ Map<String, dynamic> createFavoritesRecordData({
     <String, dynamic>{
       'created_at': createdAt,
       'favorite_id': favoriteId,
-      'user_id': userId,
+      'uid': uid,
       'place_image_urls': placeImageUrls,
       'place_is_favorite': placeIsFavorite,
       'place_name': placeName,
@@ -134,7 +132,7 @@ class FavoritesRecordDocumentEquality implements Equality<FavoritesRecord> {
   bool equals(FavoritesRecord? e1, FavoritesRecord? e2) {
     return e1?.createdAt == e2?.createdAt &&
         e1?.favoriteId == e2?.favoriteId &&
-        e1?.userId == e2?.userId &&
+        e1?.uid == e2?.uid &&
         e1?.placeImageUrls == e2?.placeImageUrls &&
         e1?.placeIsFavorite == e2?.placeIsFavorite &&
         e1?.placeName == e2?.placeName &&
@@ -146,7 +144,7 @@ class FavoritesRecordDocumentEquality implements Equality<FavoritesRecord> {
   int hash(FavoritesRecord? e) => const ListEquality().hash([
         e?.createdAt,
         e?.favoriteId,
-        e?.userId,
+        e?.uid,
         e?.placeImageUrls,
         e?.placeIsFavorite,
         e?.placeName,

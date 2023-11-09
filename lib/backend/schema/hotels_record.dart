@@ -3,16 +3,14 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class HotelsRecord extends FirestoreRecord {
   HotelsRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
@@ -30,6 +28,11 @@ class HotelsRecord extends FirestoreRecord {
   String? _hotelId;
   String get hotelId => _hotelId ?? '';
   bool hasHotelId() => _hotelId != null;
+
+  // "hotel_image_urls" field.
+  List<String>? _hotelImageUrls;
+  List<String> get hotelImageUrls => _hotelImageUrls ?? const [];
+  bool hasHotelImageUrls() => _hotelImageUrls != null;
 
   // "hotel_location" field.
   LatLng? _hotelLocation;
@@ -56,21 +59,64 @@ class HotelsRecord extends FirestoreRecord {
   DocumentReference? get placeName => _placeName;
   bool hasPlaceName() => _placeName != null;
 
-  // "hotel_image_urls" field.
-  List<String>? _hotelImageUrls;
-  List<String> get hotelImageUrls => _hotelImageUrls ?? const [];
-  bool hasHotelImageUrls() => _hotelImageUrls != null;
+  // "hotel_address" field.
+  String? _hotelAddress;
+  String get hotelAddress => _hotelAddress ?? '';
+  bool hasHotelAddress() => _hotelAddress != null;
+
+  // "hotel_class" field.
+  String? _hotelClass;
+  String get hotelClass => _hotelClass ?? '';
+  bool hasHotelClass() => _hotelClass != null;
+
+  // "hotel_email" field.
+  String? _hotelEmail;
+  String get hotelEmail => _hotelEmail ?? '';
+  bool hasHotelEmail() => _hotelEmail != null;
+
+  // "hotel_phone" field.
+  String? _hotelPhone;
+  String get hotelPhone => _hotelPhone ?? '';
+  bool hasHotelPhone() => _hotelPhone != null;
+
+  // "hotel_price" field.
+  String? _hotelPrice;
+  String get hotelPrice => _hotelPrice ?? '';
+  bool hasHotelPrice() => _hotelPrice != null;
+
+  // "hotel_ranking" field.
+  String? _hotelRanking;
+  String get hotelRanking => _hotelRanking ?? '';
+  bool hasHotelRanking() => _hotelRanking != null;
+
+  // "hotel_tips_text" field.
+  String? _hotelTipsText;
+  String get hotelTipsText => _hotelTipsText ?? '';
+  bool hasHotelTipsText() => _hotelTipsText != null;
+
+  // "hotel_website" field.
+  String? _hotelWebsite;
+  String get hotelWebsite => _hotelWebsite ?? '';
+  bool hasHotelWebsite() => _hotelWebsite != null;
 
   void _initializeFields() {
     _createdAt = snapshotData['created_at'] as DateTime?;
     _hotelDescription = snapshotData['hotel_description'] as String?;
     _hotelId = snapshotData['hotel_id'] as String?;
+    _hotelImageUrls = getDataList(snapshotData['hotel_image_urls']);
     _hotelLocation = snapshotData['hotel_location'] as LatLng?;
     _hotelName = snapshotData['hotel_name'] as String?;
     _hotelRatings = castToType<double>(snapshotData['hotel_ratings']);
     _placeLocation = snapshotData['place_location'] as DocumentReference?;
     _placeName = snapshotData['place_name'] as DocumentReference?;
-    _hotelImageUrls = getDataList(snapshotData['hotel_image_urls']);
+    _hotelAddress = snapshotData['hotel_address'] as String?;
+    _hotelClass = snapshotData['hotel_class'] as String?;
+    _hotelEmail = snapshotData['hotel_email'] as String?;
+    _hotelPhone = snapshotData['hotel_phone'] as String?;
+    _hotelPrice = snapshotData['hotel_price'] as String?;
+    _hotelRanking = snapshotData['hotel_ranking'] as String?;
+    _hotelTipsText = snapshotData['hotel_tips_text'] as String?;
+    _hotelWebsite = snapshotData['hotel_website'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -115,6 +161,14 @@ Map<String, dynamic> createHotelsRecordData({
   double? hotelRatings,
   DocumentReference? placeLocation,
   DocumentReference? placeName,
+  String? hotelAddress,
+  String? hotelClass,
+  String? hotelEmail,
+  String? hotelPhone,
+  String? hotelPrice,
+  String? hotelRanking,
+  String? hotelTipsText,
+  String? hotelWebsite,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -126,6 +180,14 @@ Map<String, dynamic> createHotelsRecordData({
       'hotel_ratings': hotelRatings,
       'place_location': placeLocation,
       'place_name': placeName,
+      'hotel_address': hotelAddress,
+      'hotel_class': hotelClass,
+      'hotel_email': hotelEmail,
+      'hotel_phone': hotelPhone,
+      'hotel_price': hotelPrice,
+      'hotel_ranking': hotelRanking,
+      'hotel_tips_text': hotelTipsText,
+      'hotel_website': hotelWebsite,
     }.withoutNulls,
   );
 
@@ -141,12 +203,20 @@ class HotelsRecordDocumentEquality implements Equality<HotelsRecord> {
     return e1?.createdAt == e2?.createdAt &&
         e1?.hotelDescription == e2?.hotelDescription &&
         e1?.hotelId == e2?.hotelId &&
+        listEquality.equals(e1?.hotelImageUrls, e2?.hotelImageUrls) &&
         e1?.hotelLocation == e2?.hotelLocation &&
         e1?.hotelName == e2?.hotelName &&
         e1?.hotelRatings == e2?.hotelRatings &&
         e1?.placeLocation == e2?.placeLocation &&
         e1?.placeName == e2?.placeName &&
-        listEquality.equals(e1?.hotelImageUrls, e2?.hotelImageUrls);
+        e1?.hotelAddress == e2?.hotelAddress &&
+        e1?.hotelClass == e2?.hotelClass &&
+        e1?.hotelEmail == e2?.hotelEmail &&
+        e1?.hotelPhone == e2?.hotelPhone &&
+        e1?.hotelPrice == e2?.hotelPrice &&
+        e1?.hotelRanking == e2?.hotelRanking &&
+        e1?.hotelTipsText == e2?.hotelTipsText &&
+        e1?.hotelWebsite == e2?.hotelWebsite;
   }
 
   @override
@@ -154,12 +224,20 @@ class HotelsRecordDocumentEquality implements Equality<HotelsRecord> {
         e?.createdAt,
         e?.hotelDescription,
         e?.hotelId,
+        e?.hotelImageUrls,
         e?.hotelLocation,
         e?.hotelName,
         e?.hotelRatings,
         e?.placeLocation,
         e?.placeName,
-        e?.hotelImageUrls
+        e?.hotelAddress,
+        e?.hotelClass,
+        e?.hotelEmail,
+        e?.hotelPhone,
+        e?.hotelPrice,
+        e?.hotelRanking,
+        e?.hotelTipsText,
+        e?.hotelWebsite
       ]);
 
   @override

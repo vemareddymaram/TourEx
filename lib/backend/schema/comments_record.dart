@@ -3,38 +3,36 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class CommentsRecord extends FirestoreRecord {
   CommentsRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
-
-  // "created_at" field.
-  DateTime? _createdAt;
-  DateTime? get createdAt => _createdAt;
-  bool hasCreatedAt() => _createdAt != null;
 
   // "comment_id" field.
   String? _commentId;
   String get commentId => _commentId ?? '';
   bool hasCommentId() => _commentId != null;
 
+  // "created_at" field.
+  DateTime? _createdAt;
+  DateTime? get createdAt => _createdAt;
+  bool hasCreatedAt() => _createdAt != null;
+
   // "text" field.
   String? _text;
   String get text => _text ?? '';
   bool hasText() => _text != null;
 
-  // "user_id" field.
-  DocumentReference? _userId;
-  DocumentReference? get userId => _userId;
-  bool hasUserId() => _userId != null;
+  // "uid" field.
+  DocumentReference? _uid;
+  DocumentReference? get uid => _uid;
+  bool hasUid() => _uid != null;
 
   // "review_id" field.
   DocumentReference? _reviewId;
@@ -42,10 +40,10 @@ class CommentsRecord extends FirestoreRecord {
   bool hasReviewId() => _reviewId != null;
 
   void _initializeFields() {
-    _createdAt = snapshotData['created_at'] as DateTime?;
     _commentId = snapshotData['comment_id'] as String?;
+    _createdAt = snapshotData['created_at'] as DateTime?;
     _text = snapshotData['text'] as String?;
-    _userId = snapshotData['user_id'] as DocumentReference?;
+    _uid = snapshotData['uid'] as DocumentReference?;
     _reviewId = snapshotData['review_id'] as DocumentReference?;
   }
 
@@ -84,18 +82,18 @@ class CommentsRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createCommentsRecordData({
-  DateTime? createdAt,
   String? commentId,
+  DateTime? createdAt,
   String? text,
-  DocumentReference? userId,
+  DocumentReference? uid,
   DocumentReference? reviewId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'created_at': createdAt,
       'comment_id': commentId,
+      'created_at': createdAt,
       'text': text,
-      'user_id': userId,
+      'uid': uid,
       'review_id': reviewId,
     }.withoutNulls,
   );
@@ -108,16 +106,16 @@ class CommentsRecordDocumentEquality implements Equality<CommentsRecord> {
 
   @override
   bool equals(CommentsRecord? e1, CommentsRecord? e2) {
-    return e1?.createdAt == e2?.createdAt &&
-        e1?.commentId == e2?.commentId &&
+    return e1?.commentId == e2?.commentId &&
+        e1?.createdAt == e2?.createdAt &&
         e1?.text == e2?.text &&
-        e1?.userId == e2?.userId &&
+        e1?.uid == e2?.uid &&
         e1?.reviewId == e2?.reviewId;
   }
 
   @override
   int hash(CommentsRecord? e) => const ListEquality()
-      .hash([e?.createdAt, e?.commentId, e?.text, e?.userId, e?.reviewId]);
+      .hash([e?.commentId, e?.createdAt, e?.text, e?.uid, e?.reviewId]);
 
   @override
   bool isValidKey(Object? o) => o is CommentsRecord;

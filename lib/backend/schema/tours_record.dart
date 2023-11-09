@@ -3,16 +3,14 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class ToursRecord extends FirestoreRecord {
   ToursRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
@@ -76,10 +74,10 @@ class ToursRecord extends FirestoreRecord {
   String get tourName => _tourName ?? '';
   bool hasTourName() => _tourName != null;
 
-  // "user_id" field.
-  DocumentReference? _userId;
-  DocumentReference? get userId => _userId;
-  bool hasUserId() => _userId != null;
+  // "uid" field.
+  DocumentReference? _uid;
+  DocumentReference? get uid => _uid;
+  bool hasUid() => _uid != null;
 
   void _initializeFields() {
     _createdAt = snapshotData['created_at'] as DateTime?;
@@ -94,7 +92,7 @@ class ToursRecord extends FirestoreRecord {
     _tourId = snapshotData['tour_id'] as String?;
     _tourImage = snapshotData['tour_image'] as String?;
     _tourName = snapshotData['tour_name'] as String?;
-    _userId = snapshotData['user_id'] as DocumentReference?;
+    _uid = snapshotData['uid'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -143,7 +141,7 @@ Map<String, dynamic> createToursRecordData({
   String? tourId,
   String? tourImage,
   String? tourName,
-  DocumentReference? userId,
+  DocumentReference? uid,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -159,7 +157,7 @@ Map<String, dynamic> createToursRecordData({
       'tour_id': tourId,
       'tour_image': tourImage,
       'tour_name': tourName,
-      'user_id': userId,
+      'uid': uid,
     }.withoutNulls,
   );
 
@@ -183,7 +181,7 @@ class ToursRecordDocumentEquality implements Equality<ToursRecord> {
         e1?.tourId == e2?.tourId &&
         e1?.tourImage == e2?.tourImage &&
         e1?.tourName == e2?.tourName &&
-        e1?.userId == e2?.userId;
+        e1?.uid == e2?.uid;
   }
 
   @override
@@ -200,7 +198,7 @@ class ToursRecordDocumentEquality implements Equality<ToursRecord> {
         e?.tourId,
         e?.tourImage,
         e?.tourName,
-        e?.userId
+        e?.uid
       ]);
 
   @override

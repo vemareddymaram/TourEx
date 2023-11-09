@@ -3,16 +3,14 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class UsersRecord extends FirestoreRecord {
   UsersRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
@@ -26,6 +24,21 @@ class UsersRecord extends FirestoreRecord {
   String get displayName => _displayName ?? '';
   bool hasDisplayName() => _displayName != null;
 
+  // "photo_url" field.
+  String? _photoUrl;
+  String get photoUrl => _photoUrl ?? '';
+  bool hasPhotoUrl() => _photoUrl != null;
+
+  // "uid" field.
+  String? _uid;
+  String get uid => _uid ?? '';
+  bool hasUid() => _uid != null;
+
+  // "created_time" field.
+  DateTime? _createdTime;
+  DateTime? get createdTime => _createdTime;
+  bool hasCreatedTime() => _createdTime != null;
+
   // "phone_number" field.
   String? _phoneNumber;
   String get phoneNumber => _phoneNumber ?? '';
@@ -36,47 +49,26 @@ class UsersRecord extends FirestoreRecord {
   String get gender => _gender ?? '';
   bool hasGender() => _gender != null;
 
-  // "created_time" field.
-  DateTime? _createdTime;
-  DateTime? get createdTime => _createdTime;
-  bool hasCreatedTime() => _createdTime != null;
+  // "user_location" field.
+  LatLng? _userLocation;
+  LatLng? get userLocation => _userLocation;
+  bool hasUserLocation() => _userLocation != null;
 
   // "user_id" field.
   String? _userId;
   String get userId => _userId ?? '';
   bool hasUserId() => _userId != null;
 
-  // "uid" field.
-  String? _uid;
-  String get uid => _uid ?? '';
-  bool hasUid() => _uid != null;
-
-  // "password" field.
-  String? _password;
-  String get password => _password ?? '';
-  bool hasPassword() => _password != null;
-
-  // "user_location" field.
-  LatLng? _userLocation;
-  LatLng? get userLocation => _userLocation;
-  bool hasUserLocation() => _userLocation != null;
-
-  // "photo_url" field.
-  String? _photoUrl;
-  String get photoUrl => _photoUrl ?? '';
-  bool hasPhotoUrl() => _photoUrl != null;
-
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
+    _photoUrl = snapshotData['photo_url'] as String?;
+    _uid = snapshotData['uid'] as String?;
+    _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
     _gender = snapshotData['gender'] as String?;
-    _createdTime = snapshotData['created_time'] as DateTime?;
-    _userId = snapshotData['user_id'] as String?;
-    _uid = snapshotData['uid'] as String?;
-    _password = snapshotData['password'] as String?;
     _userLocation = snapshotData['user_location'] as LatLng?;
-    _photoUrl = snapshotData['photo_url'] as String?;
+    _userId = snapshotData['user_id'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -115,27 +107,25 @@ class UsersRecord extends FirestoreRecord {
 Map<String, dynamic> createUsersRecordData({
   String? email,
   String? displayName,
+  String? photoUrl,
+  String? uid,
+  DateTime? createdTime,
   String? phoneNumber,
   String? gender,
-  DateTime? createdTime,
-  String? userId,
-  String? uid,
-  String? password,
   LatLng? userLocation,
-  String? photoUrl,
+  String? userId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'email': email,
       'display_name': displayName,
+      'photo_url': photoUrl,
+      'uid': uid,
+      'created_time': createdTime,
       'phone_number': phoneNumber,
       'gender': gender,
-      'created_time': createdTime,
-      'user_id': userId,
-      'uid': uid,
-      'password': password,
       'user_location': userLocation,
-      'photo_url': photoUrl,
+      'user_id': userId,
     }.withoutNulls,
   );
 
@@ -149,28 +139,26 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
   bool equals(UsersRecord? e1, UsersRecord? e2) {
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
+        e1?.photoUrl == e2?.photoUrl &&
+        e1?.uid == e2?.uid &&
+        e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.gender == e2?.gender &&
-        e1?.createdTime == e2?.createdTime &&
-        e1?.userId == e2?.userId &&
-        e1?.uid == e2?.uid &&
-        e1?.password == e2?.password &&
         e1?.userLocation == e2?.userLocation &&
-        e1?.photoUrl == e2?.photoUrl;
+        e1?.userId == e2?.userId;
   }
 
   @override
   int hash(UsersRecord? e) => const ListEquality().hash([
         e?.email,
         e?.displayName,
+        e?.photoUrl,
+        e?.uid,
+        e?.createdTime,
         e?.phoneNumber,
         e?.gender,
-        e?.createdTime,
-        e?.userId,
-        e?.uid,
-        e?.password,
         e?.userLocation,
-        e?.photoUrl
+        e?.userId
       ]);
 
   @override

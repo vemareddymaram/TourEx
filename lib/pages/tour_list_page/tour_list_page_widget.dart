@@ -2,19 +2,17 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'tour_list_page_model.dart';
 export 'tour_list_page_model.dart';
 
 class TourListPageWidget extends StatefulWidget {
-  const TourListPageWidget({Key? key}) : super(key: key);
+  const TourListPageWidget({super.key});
 
   @override
   _TourListPageWidgetState createState() => _TourListPageWidgetState();
@@ -29,6 +27,8 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TourListPageModel());
+
+    _model.expandableController = ExpandableController(initialExpanded: false);
   }
 
   @override
@@ -40,6 +40,15 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -57,7 +66,7 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -74,14 +83,14 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Container(
-            width: MediaQuery.sizeOf(context).width * 1.0,
+            width: double.infinity,
             height: MediaQuery.sizeOf(context).height * 1.0,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).primaryBackground,
@@ -91,14 +100,15 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   ListView(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             10.0, 0.0, 10.0, 0.0),
                         child: Container(
+                          width: double.infinity,
                           height: 200.0,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
@@ -108,10 +118,10 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                             color:
                                 FlutterFlowTheme.of(context).primaryBackground,
                             child: ExpandableNotifier(
-                              initialExpanded: false,
+                              controller: _model.expandableController,
                               child: ExpandablePanel(
                                 header: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     '',
@@ -125,13 +135,12 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                   ),
                                 ),
                                 collapsed: ListView(
-                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
                                   children: [
                                     Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          1.0,
+                                      width: double.infinity,
                                       height: 120.0,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
@@ -147,7 +156,7 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                     .width *
                                                 0.3,
                                             height: 120.0,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               image: DecorationImage(
                                                 fit: BoxFit.fill,
                                                 image:
@@ -168,9 +177,9 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                           Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
-                                                0.65,
+                                                0.755,
                                             height: 120.0,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               borderRadius: BorderRadius.only(
                                                 bottomLeft:
                                                     Radius.circular(0.0),
@@ -187,29 +196,29 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                   width:
                                                       MediaQuery.sizeOf(context)
                                                               .width *
-                                                          0.55,
+                                                          0.605,
                                                   height: 120.0,
-                                                  decoration: BoxDecoration(),
+                                                  decoration: const BoxDecoration(),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0.00, -1.00),
                                                         child: Container(
                                                           width:
                                                               MediaQuery.sizeOf(
                                                                           context)
                                                                       .width *
-                                                                  0.55,
+                                                                  0.65,
                                                           height: 30.0,
                                                           decoration:
-                                                              BoxDecoration(),
+                                                              const BoxDecoration(),
                                                           child: Align(
                                                             alignment:
-                                                                AlignmentDirectional(
+                                                                const AlignmentDirectional(
                                                                     0.00, 1.00),
                                                             child: Text(
                                                               '',
@@ -225,24 +234,33 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                             MediaQuery.sizeOf(
                                                                         context)
                                                                     .width *
-                                                                0.55,
+                                                                0.65,
                                                         height: 30.0,
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
                                                             Align(
                                                               alignment:
-                                                                  AlignmentDirectional(
+                                                                  const AlignmentDirectional(
                                                                       -1.00,
                                                                       0.00),
-                                                              child: Text(
-                                                                ' Date: ',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium,
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Text(
+                                                                  ' Date: ',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium,
+                                                                ),
                                                               ),
                                                             ),
                                                             Text(
@@ -271,19 +289,28 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                             MediaQuery.sizeOf(
                                                                         context)
                                                                     .width *
-                                                                0.55,
+                                                                0.65,
                                                         height: 30.0,
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
-                                                            Text(
-                                                              ' No of persons: ',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: Text(
+                                                                ' No of persons: ',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium,
+                                                              ),
                                                             ),
                                                             Text(
                                                               '',
@@ -299,17 +326,17 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                             MediaQuery.sizeOf(
                                                                         context)
                                                                     .width *
-                                                                0.55,
+                                                                0.65,
                                                         height: 30.0,
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           15.0,
                                                                           0.0,
@@ -326,7 +353,7 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                                 ),
                                                                 child: Align(
                                                                   alignment:
-                                                                      AlignmentDirectional(
+                                                                      const AlignmentDirectional(
                                                                           -1.00,
                                                                           0.00),
                                                                   child: RatingBar
@@ -380,9 +407,9 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                   width:
                                                       MediaQuery.sizeOf(context)
                                                               .width *
-                                                          0.1,
+                                                          0.15,
                                                   height: 120.0,
-                                                  decoration: BoxDecoration(
+                                                  decoration: const BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.only(
                                                       bottomLeft:
@@ -403,7 +430,7 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                     children: [
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 1.00, -1.00),
                                                         child:
                                                             FlutterFlowIconButton(
@@ -426,7 +453,7 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     10.0,
@@ -467,16 +494,15 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                         ],
                                       ),
                                     ),
-                                  ].divide(SizedBox(height: 10.0)),
+                                  ].divide(const SizedBox(height: 10.0)),
                                 ),
                                 expanded: ListView(
-                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
                                   children: [
                                     Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          1.0,
+                                      width: double.infinity,
                                       height: 120.0,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
@@ -492,7 +518,7 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                     .width *
                                                 0.3,
                                             height: 120.0,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               image: DecorationImage(
                                                 fit: BoxFit.fill,
                                                 image:
@@ -513,9 +539,9 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                           Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
-                                                0.65,
+                                                0.755,
                                             height: 120.0,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               borderRadius: BorderRadius.only(
                                                 bottomLeft:
                                                     Radius.circular(0.0),
@@ -532,29 +558,29 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                   width:
                                                       MediaQuery.sizeOf(context)
                                                               .width *
-                                                          0.55,
+                                                          0.605,
                                                   height: 120.0,
-                                                  decoration: BoxDecoration(),
+                                                  decoration: const BoxDecoration(),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0.00, -1.00),
                                                         child: Container(
                                                           width:
                                                               MediaQuery.sizeOf(
                                                                           context)
                                                                       .width *
-                                                                  0.55,
+                                                                  0.65,
                                                           height: 30.0,
                                                           decoration:
-                                                              BoxDecoration(),
+                                                              const BoxDecoration(),
                                                           child: Align(
                                                             alignment:
-                                                                AlignmentDirectional(
+                                                                const AlignmentDirectional(
                                                                     0.00, 1.00),
                                                             child: Text(
                                                               '',
@@ -570,24 +596,33 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                             MediaQuery.sizeOf(
                                                                         context)
                                                                     .width *
-                                                                0.55,
+                                                                0.65,
                                                         height: 30.0,
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
                                                             Align(
                                                               alignment:
-                                                                  AlignmentDirectional(
+                                                                  const AlignmentDirectional(
                                                                       -1.00,
                                                                       0.00),
-                                                              child: Text(
-                                                                ' Date: ',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium,
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Text(
+                                                                  ' Date: ',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium,
+                                                                ),
                                                               ),
                                                             ),
                                                             Text(
@@ -616,19 +651,28 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                             MediaQuery.sizeOf(
                                                                         context)
                                                                     .width *
-                                                                0.55,
+                                                                0.65,
                                                         height: 30.0,
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
-                                                            Text(
-                                                              ' No of persons: ',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: Text(
+                                                                ' No of persons: ',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium,
+                                                              ),
                                                             ),
                                                             Text(
                                                               '',
@@ -644,17 +688,17 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                             MediaQuery.sizeOf(
                                                                         context)
                                                                     .width *
-                                                                0.55,
+                                                                0.65,
                                                         height: 30.0,
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           15.0,
                                                                           0.0,
@@ -671,7 +715,7 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                                 ),
                                                                 child: Align(
                                                                   alignment:
-                                                                      AlignmentDirectional(
+                                                                      const AlignmentDirectional(
                                                                           -1.00,
                                                                           0.00),
                                                                   child: RatingBar
@@ -725,9 +769,9 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                   width:
                                                       MediaQuery.sizeOf(context)
                                                               .width *
-                                                          0.1,
+                                                          0.15,
                                                   height: 120.0,
-                                                  decoration: BoxDecoration(
+                                                  decoration: const BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.only(
                                                       bottomLeft:
@@ -748,7 +792,7 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                     children: [
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 1.00, -1.00),
                                                         child:
                                                             FlutterFlowIconButton(
@@ -773,7 +817,7 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     10.0,
@@ -814,9 +858,9 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                         ],
                                       ),
                                     ),
-                                  ].divide(SizedBox(height: 10.0)),
+                                  ].divide(const SizedBox(height: 10.0)),
                                 ),
-                                theme: ExpandableThemeData(
+                                theme: const ExpandableThemeData(
                                   tapHeaderToExpand: true,
                                   tapBodyToExpand: true,
                                   tapBodyToCollapse: true,
@@ -825,15 +869,16 @@ class _TourListPageWidgetState extends State<TourListPageWidget> {
                                   hasIcon: true,
                                   expandIcon: Icons.expand_more,
                                   collapseIcon: Icons.expand_less,
+                                  iconSize: 25.0,
                                 ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ].divide(SizedBox(height: 10.0)),
+                    ].divide(const SizedBox(height: 10.0)),
                   ),
-                ].addToEnd(SizedBox(height: 30.0)),
+                ].addToEnd(const SizedBox(height: 30.0)),
               ),
             ),
           ),

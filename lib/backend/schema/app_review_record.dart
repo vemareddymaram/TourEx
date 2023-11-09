@@ -3,33 +3,31 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class AppReviewRecord extends FirestoreRecord {
   AppReviewRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
-  // "created_at" field.
-  DateTime? _createdAt;
-  DateTime? get createdAt => _createdAt;
-  bool hasCreatedAt() => _createdAt != null;
+  // "app_comment" field.
+  String? _appComment;
+  String get appComment => _appComment ?? '';
+  bool hasAppComment() => _appComment != null;
 
   // "app_review_id" field.
   String? _appReviewId;
   String get appReviewId => _appReviewId ?? '';
   bool hasAppReviewId() => _appReviewId != null;
 
-  // "app_comment" field.
-  String? _appComment;
-  String get appComment => _appComment ?? '';
-  bool hasAppComment() => _appComment != null;
+  // "created_at" field.
+  DateTime? _createdAt;
+  DateTime? get createdAt => _createdAt;
+  bool hasCreatedAt() => _createdAt != null;
 
   // "rating" field.
   double? _rating;
@@ -41,18 +39,18 @@ class AppReviewRecord extends FirestoreRecord {
   double get ratingBar => _ratingBar ?? 0.0;
   bool hasRatingBar() => _ratingBar != null;
 
-  // "user_id" field.
-  DocumentReference? _userId;
-  DocumentReference? get userId => _userId;
-  bool hasUserId() => _userId != null;
+  // "uid" field.
+  DocumentReference? _uid;
+  DocumentReference? get uid => _uid;
+  bool hasUid() => _uid != null;
 
   void _initializeFields() {
-    _createdAt = snapshotData['created_at'] as DateTime?;
-    _appReviewId = snapshotData['app_review_id'] as String?;
     _appComment = snapshotData['app_comment'] as String?;
+    _appReviewId = snapshotData['app_review_id'] as String?;
+    _createdAt = snapshotData['created_at'] as DateTime?;
     _rating = castToType<double>(snapshotData['rating']);
     _ratingBar = castToType<double>(snapshotData['rating_bar']);
-    _userId = snapshotData['user_id'] as DocumentReference?;
+    _uid = snapshotData['uid'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -90,21 +88,21 @@ class AppReviewRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createAppReviewRecordData({
-  DateTime? createdAt,
-  String? appReviewId,
   String? appComment,
+  String? appReviewId,
+  DateTime? createdAt,
   double? rating,
   double? ratingBar,
-  DocumentReference? userId,
+  DocumentReference? uid,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'created_at': createdAt,
-      'app_review_id': appReviewId,
       'app_comment': appComment,
+      'app_review_id': appReviewId,
+      'created_at': createdAt,
       'rating': rating,
       'rating_bar': ratingBar,
-      'user_id': userId,
+      'uid': uid,
     }.withoutNulls,
   );
 
@@ -116,22 +114,22 @@ class AppReviewRecordDocumentEquality implements Equality<AppReviewRecord> {
 
   @override
   bool equals(AppReviewRecord? e1, AppReviewRecord? e2) {
-    return e1?.createdAt == e2?.createdAt &&
+    return e1?.appComment == e2?.appComment &&
         e1?.appReviewId == e2?.appReviewId &&
-        e1?.appComment == e2?.appComment &&
+        e1?.createdAt == e2?.createdAt &&
         e1?.rating == e2?.rating &&
         e1?.ratingBar == e2?.ratingBar &&
-        e1?.userId == e2?.userId;
+        e1?.uid == e2?.uid;
   }
 
   @override
   int hash(AppReviewRecord? e) => const ListEquality().hash([
-        e?.createdAt,
-        e?.appReviewId,
         e?.appComment,
+        e?.appReviewId,
+        e?.createdAt,
         e?.rating,
         e?.ratingBar,
-        e?.userId
+        e?.uid
       ]);
 
   @override

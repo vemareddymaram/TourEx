@@ -1,18 +1,6 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
 import 'user_profile_widget.dart' show UserProfileWidget;
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class UserProfileModel extends FlutterFlowModel<UserProfileWidget> {
   ///  State fields for stateful widgets in this page.
@@ -22,8 +10,10 @@ class UserProfileModel extends FlutterFlowModel<UserProfileWidget> {
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
 
   // State field(s) for uName widget.
+  FocusNode? uNameFocusNode;
   TextEditingController? uNameController;
   String? Function(BuildContext, String?)? uNameControllerValidator;
   String? _uNameControllerValidator(BuildContext context, String? val) {
@@ -37,7 +27,20 @@ class UserProfileModel extends FlutterFlowModel<UserProfileWidget> {
     return null;
   }
 
+  // State field(s) for userId widget.
+  FocusNode? userIdFocusNode;
+  TextEditingController? userIdController;
+  String? Function(BuildContext, String?)? userIdControllerValidator;
+  String? _userIdControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for emailAdd widget.
+  FocusNode? emailAddFocusNode;
   TextEditingController? emailAddController;
   String? Function(BuildContext, String?)? emailAddControllerValidator;
   String? _emailAddControllerValidator(BuildContext context, String? val) {
@@ -52,6 +55,7 @@ class UserProfileModel extends FlutterFlowModel<UserProfileWidget> {
   }
 
   // State field(s) for phNum widget.
+  FocusNode? phNumFocusNode1;
   TextEditingController? phNumController1;
   String? Function(BuildContext, String?)? phNumController1Validator;
   String? _phNumController1Validator(BuildContext context, String? val) {
@@ -63,22 +67,44 @@ class UserProfileModel extends FlutterFlowModel<UserProfileWidget> {
   }
 
   // State field(s) for phNum widget.
+  FocusNode? phNumFocusNode2;
   TextEditingController? phNumController2;
   String? Function(BuildContext, String?)? phNumController2Validator;
+  String? _phNumController2Validator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     uNameControllerValidator = _uNameControllerValidator;
+    userIdControllerValidator = _userIdControllerValidator;
     emailAddControllerValidator = _emailAddControllerValidator;
     phNumController1Validator = _phNumController1Validator;
+    phNumController2Validator = _phNumController2Validator;
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
+    uNameFocusNode?.dispose();
     uNameController?.dispose();
+
+    userIdFocusNode?.dispose();
+    userIdController?.dispose();
+
+    emailAddFocusNode?.dispose();
     emailAddController?.dispose();
+
+    phNumFocusNode1?.dispose();
     phNumController1?.dispose();
+
+    phNumFocusNode2?.dispose();
     phNumController2?.dispose();
   }
 

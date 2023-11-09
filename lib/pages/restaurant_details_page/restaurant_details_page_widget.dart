@@ -1,36 +1,41 @@
+import '/components/review_bar_widget.dart';
 import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'hotels_n_restaurant_details_page_model.dart';
-export 'hotels_n_restaurant_details_page_model.dart';
+import 'restaurant_details_page_model.dart';
+export 'restaurant_details_page_model.dart';
 
-class HotelsNRestaurantDetailsPageWidget extends StatefulWidget {
-  const HotelsNRestaurantDetailsPageWidget({Key? key}) : super(key: key);
+class RestaurantDetailsPageWidget extends StatefulWidget {
+  const RestaurantDetailsPageWidget({super.key});
 
   @override
-  _HotelsNRestaurantDetailsPageWidgetState createState() =>
-      _HotelsNRestaurantDetailsPageWidgetState();
+  _RestaurantDetailsPageWidgetState createState() =>
+      _RestaurantDetailsPageWidgetState();
 }
 
-class _HotelsNRestaurantDetailsPageWidgetState
-    extends State<HotelsNRestaurantDetailsPageWidget> {
-  late HotelsNRestaurantDetailsPageModel _model;
+class _RestaurantDetailsPageWidgetState
+    extends State<RestaurantDetailsPageWidget> {
+  late RestaurantDetailsPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HotelsNRestaurantDetailsPageModel());
+    _model = createModel(context, () => RestaurantDetailsPageModel());
+
+    getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0), cached: true)
+        .then((loc) => setState(() => currentUserLocationValue = loc));
   }
 
   @override
@@ -42,7 +47,31 @@ class _HotelsNRestaurantDetailsPageWidgetState
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
+    if (currentUserLocationValue == null) {
+      return Container(
+        color: FlutterFlowTheme.of(context).primaryBackground,
+        child: Center(
+          child: SizedBox(
+            width: 50.0,
+            height: 50.0,
+            child: SpinKitChasingDots(
+              color: FlutterFlowTheme.of(context).primary,
+              size: 50.0,
+            ),
+          ),
+        ),
+      );
+    }
 
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
@@ -66,17 +95,17 @@ class _HotelsNRestaurantDetailsPageWidgetState
               size: 30.0,
             ),
             onPressed: () async {
-              context.pushNamed('homePage');
+              context.safePop();
             },
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Container(
-            width: MediaQuery.sizeOf(context).width * 1.0,
+            width: double.infinity,
             height: MediaQuery.sizeOf(context).height * 1.0,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).primaryBackground,
@@ -90,9 +119,9 @@ class _HotelsNRestaurantDetailsPageWidgetState
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.00, 0.00),
                           child: Container(
-                            width: 420.0,
+                            width: MediaQuery.sizeOf(context).width * 1.0,
                             height: 380.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
@@ -103,261 +132,165 @@ class _HotelsNRestaurantDetailsPageWidgetState
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Container(
-                                  width: 420.0,
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
                                   height: 300.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .primaryBackground,
-                                    image: DecorationImage(
+                                    image: const DecorationImage(
                                       fit: BoxFit.fill,
                                       image: CachedNetworkImageProvider(
                                         'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxN3x8aG90ZWx8ZW58MHx8fHwxNjk2NzA5NDg4fDA&ixlib=rb-4.0.3&q=80&w=1080',
                                       ),
                                     ),
-                                    borderRadius: BorderRadius.circular(20.0),
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(30.0),
+                                      bottomRight: Radius.circular(30.0),
+                                      topLeft: Radius.circular(0.0),
+                                      topRight: Radius.circular(0.0),
+                                    ),
                                   ),
                                 ),
-                                Container(
-                                  width: 420.0,
-                                  height: 70.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                  ),
-                                  child: Align(
-                                    alignment: AlignmentDirectional(0.00, 0.00),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 10.0, 0.0, 0.0),
-                                      child: Container(
-                                        width: double.infinity,
-                                        height: 50.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 5.0, 0.0, 0.0),
+                                  child: Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height: 70.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  5.0, 0.0, 0.0, 0.0),
+                                          child: Container(
+                                            width: 40.0,
+                                            height: 70.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                            ),
+                                            child: Icon(
+                                              Icons.location_on_outlined,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              size: 35.0,
+                                            ),
+                                          ),
                                         ),
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(1.00, 0.00),
-                                          child: Row(
+                                        Container(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.87,
+                                          height: 70.0,
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Container(
-                                                width: 330.0,
-                                                height: 100.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryBackground,
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Container(
-                                                        width: 40.0,
-                                                        height: 100.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
+                                              Expanded(
+                                                child: Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.00, -1.00),
+                                                  child: Container(
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.87,
+                                                    height: 35.0,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                    ),
+                                                    child: Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              -1.00, 1.00),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          '',
+                                                          style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primaryBackground,
-                                                        ),
-                                                        child: Icon(
-                                                          Icons
-                                                              .location_on_outlined,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          size: 35.0,
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Outfit',
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    1.0,
+                                                              ),
                                                         ),
                                                       ),
                                                     ),
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Align(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    0.00,
-                                                                    -1.00),
-                                                            child: Container(
-                                                              width: MediaQuery
-                                                                          .sizeOf(
-                                                                              context)
-                                                                      .width *
-                                                                  0.65,
-                                                              height: 25.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
-                                                              ),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            2.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: SelectionArea(
-                                                                        child: AutoSizeText(
-                                                                      '',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Outfit',
-                                                                            fontSize:
-                                                                                16.0,
-                                                                            letterSpacing:
-                                                                                1.0,
-                                                                          ),
-                                                                      minFontSize:
-                                                                          14.0,
-                                                                    )),
-                                                                  ),
-                                                                  Text(
-                                                                    '-',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Outfit',
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          letterSpacing:
-                                                                              1.0,
-                                                                        ),
-                                                                  ),
-                                                                  Text(
-                                                                    '',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Outfit',
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          letterSpacing:
-                                                                              1.0,
-                                                                        ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Align(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    0.00,
-                                                                    -1.00),
-                                                            child: Container(
-                                                              width: MediaQuery
-                                                                          .sizeOf(
-                                                                              context)
-                                                                      .width *
-                                                                  0.65,
-                                                              height: 25.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
-                                                              ),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            2.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: SelectionArea(
-                                                                        child: AutoSizeText(
-                                                                      '',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Outfit',
-                                                                            fontSize:
-                                                                                16.0,
-                                                                            letterSpacing:
-                                                                                1.0,
-                                                                          ),
-                                                                      minFontSize:
-                                                                          14.0,
-                                                                    )),
-                                                                  ),
-                                                                  Text(
-                                                                    ',',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Outfit',
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          letterSpacing:
-                                                                              1.0,
-                                                                        ),
-                                                                  ),
-                                                                  Text(
-                                                                    '',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Outfit',
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          letterSpacing:
-                                                                              1.0,
-                                                                        ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.00, -1.00),
+                                                  child: Container(
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.87,
+                                                    height: 35.0,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
                                                     ),
-                                                  ],
+                                                    child: Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              -1.00, 0.00),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          '',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Outfit',
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    1.0,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                      ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -376,9 +309,9 @@ class _HotelsNRestaurantDetailsPageWidgetState
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(-1.00, -1.00),
+                                alignment: const AlignmentDirectional(-1.00, -1.00),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 10.0, 0.0, 0.0),
                                   child: Text(
                                     'Overview',
@@ -386,7 +319,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Outfit',
-                                          color: Color(0xFF1D4C67),
+                                          color: const Color(0xFF1D4C67),
                                           fontSize: 16.0,
                                           letterSpacing: 2.0,
                                         ),
@@ -394,9 +327,9 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                 ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0.00, 0.00),
+                                alignment: const AlignmentDirectional(0.00, 0.00),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 0.0),
                                   child: Container(
                                     width: double.infinity,
@@ -407,9 +340,9 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                     ),
                                     child: Align(
                                       alignment:
-                                          AlignmentDirectional(-1.00, -1.00),
+                                          const AlignmentDirectional(-1.00, -1.00),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             10.0, 0.0, 10.0, 0.0),
                                         child: AutoSizeText(
                                           '\'Crown of the Palace\', originally the Rauza-i-munawwara is an ivory-white marble mausoleum on the southern bank of the river Yamuna in the Indian city of Agra.\nIt was created by Shah Jahan, the fifth Mughal emperor who ruled from 1628 until 1658.Shah Jahan constructed the Taj Mahal to house the tomb of his beloved wife Mumtaz Mahal. ',
@@ -431,11 +364,73 @@ class _HotelsNRestaurantDetailsPageWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 5.0, 0.0, 0.0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 20.0, 0.0, 0.0),
                           child: Container(
-                            width: double.infinity,
-                            height: 360.0,
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            height: 500.0,
+                            decoration: const BoxDecoration(),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Align(
+                                  alignment: const AlignmentDirectional(-1.00, -1.00),
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 0.0, 0.0, 0.0),
+                                    child: Text(
+                                      'Map',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Outfit',
+                                            color: const Color(0xFF1D4C67),
+                                            fontSize: 16.0,
+                                            letterSpacing: 2.0,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 5.0, 0.0, 0.0),
+                                  child: Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height: 474.0,
+                                    decoration: const BoxDecoration(),
+                                    child: FlutterFlowGoogleMap(
+                                      controller: _model.googleMapsController,
+                                      onCameraIdle: (latLng) => setState(() =>
+                                          _model.googleMapsCenter = latLng),
+                                      initialLocation:
+                                          _model.googleMapsCenter ??=
+                                              currentUserLocationValue!,
+                                      markerColor: GoogleMarkerColor.red,
+                                      mapType: MapType.normal,
+                                      style: GoogleMapStyle.standard,
+                                      initialZoom: 14.0,
+                                      allowInteraction: true,
+                                      allowZoom: true,
+                                      showZoomControls: true,
+                                      showLocation: true,
+                                      showCompass: true,
+                                      showMapToolbar: true,
+                                      showTraffic: false,
+                                      centerMapOnMarkerTap: true,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              5.0, 20.0, 5.0, 0.0),
+                          child: Container(
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            height: 260.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .primaryBackground,
@@ -444,17 +439,17 @@ class _HotelsNRestaurantDetailsPageWidgetState
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(-1.00, -1.00),
+                                  alignment: const AlignmentDirectional(-1.00, -1.00),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 20.0, 0.0, 10.0),
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 10.0, 0.0, 10.0),
                                     child: Text(
-                                      'Map',
+                                      'Similar Restaurants',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Outfit',
-                                            color: Color(0xFF1D4C67),
+                                            color: const Color(0xFF1D4C67),
                                             fontSize: 16.0,
                                             letterSpacing: 2.0,
                                           ),
@@ -462,67 +457,150 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.00, 0.00),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 10.0, 0.0),
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      elevation: 3.0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                      ),
-                                      child: Container(
-                                        width: 410.0,
-                                        height: 300.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              blurRadius: 4.0,
-                                              color: Color(0x33000000),
-                                              offset: Offset(0.0, 2.0),
-                                            )
-                                          ],
-                                          borderRadius:
-                                              BorderRadius.circular(0.0),
-                                        ),
-                                        child: Align(
+                                  alignment: const AlignmentDirectional(0.00, 0.00),
+                                  child: Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height: 220.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                    ),
+                                    child: ListView(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20.0),
+                                      scrollDirection: Axis.horizontal,
+                                      children: [
+                                        Align(
                                           alignment:
-                                              AlignmentDirectional(0.00, 0.00),
+                                              const AlignmentDirectional(0.00, 0.00),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 5.0),
-                                            child: FlutterFlowGoogleMap(
-                                              controller:
-                                                  _model.googleMapsController,
-                                              onCameraIdle: (latLng) =>
-                                                  setState(() =>
-                                                      _model.googleMapsCenter =
-                                                          latLng),
-                                              initialLocation: _model
-                                                      .googleMapsCenter ??=
-                                                  LatLng(27.173891, 78.042068),
-                                              markerColor:
-                                                  GoogleMarkerColor.violet,
-                                              mapType: MapType.normal,
-                                              style: GoogleMapStyle.standard,
-                                              initialZoom: 14.0,
-                                              allowInteraction: true,
-                                              allowZoom: true,
-                                              showZoomControls: true,
-                                              showLocation: true,
-                                              showCompass: true,
-                                              showMapToolbar: true,
-                                              showTraffic: true,
-                                              centerMapOnMarkerTap: true,
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 10.0, 0.0, 10.0),
+                                            child: Container(
+                                              width: 180.0,
+                                              height: 205.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                image: const DecorationImage(
+                                                  fit: BoxFit.fill,
+                                                  image:
+                                                      CachedNetworkImageProvider(
+                                                    'https://images.unsplash.com/photo-1616606484004-5ef3cc46e39d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw0fHxoYW1waXxlbnwwfHx8fDE2OTY2Nzc1NTJ8MA&ixlib=rb-4.0.3&q=80&w=1080',
+                                                  ),
+                                                ),
+                                                boxShadow: const [
+                                                  BoxShadow(
+                                                    blurRadius: 4.0,
+                                                    color: Color(0x33000000),
+                                                    offset: Offset(2.0, 2.0),
+                                                    spreadRadius: 2.0,
+                                                  )
+                                                ],
+                                                borderRadius:
+                                                    BorderRadius.circular(25.0),
+                                              ),
+                                              child: Align(
+                                                alignment: const AlignmentDirectional(
+                                                    0.00, 1.00),
+                                                child: Container(
+                                                  width: 180.0,
+                                                  height: 50.0,
+                                                  decoration: const BoxDecoration(
+                                                    color: Color(0x80FFFFFF),
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      bottomLeft:
+                                                          Radius.circular(25.0),
+                                                      bottomRight:
+                                                          Radius.circular(25.0),
+                                                      topLeft:
+                                                          Radius.circular(0.0),
+                                                      topRight:
+                                                          Radius.circular(0.0),
+                                                    ),
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Align(
+                                                        alignment:
+                                                            const AlignmentDirectional(
+                                                                -1.00, -1.00),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      5.0,
+                                                                      5.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Text(
+                                                            '',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Align(
+                                                        alignment:
+                                                            const AlignmentDirectional(
+                                                                0.00, 1.00),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      8.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child:
+                                                              RatingBar.builder(
+                                                            onRatingUpdate: (newValue) =>
+                                                                setState(() =>
+                                                                    _model.ratingBarValue =
+                                                                        newValue),
+                                                            itemBuilder:
+                                                                (context,
+                                                                        index) =>
+                                                                    Icon(
+                                                              Icons
+                                                                  .star_rounded,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .customColor3,
+                                                            ),
+                                                            direction:
+                                                                Axis.horizontal,
+                                                            initialRating: _model
+                                                                    .ratingBarValue ??=
+                                                                5.0,
+                                                            unratedColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .accent3,
+                                                            itemCount: 5,
+                                                            itemSize: 15.0,
+                                                            glowColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .customColor3,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
+                                      ].divide(const SizedBox(width: 20.0)),
                                     ),
                                   ),
                                 ),
@@ -530,15 +608,25 @@ class _HotelsNRestaurantDetailsPageWidgetState
                             ),
                           ),
                         ),
+                        Container(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          height: 300.0,
+                          decoration: const BoxDecoration(),
+                          child: wrapWithModel(
+                            model: _model.reviewBarModel,
+                            updateCallback: () => setState(() {}),
+                            child: const ReviewBarWidget(),
+                          ),
+                        ),
                         Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.00, 0.00),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 1.0, 20.0, 1.0, 0.0),
                             child: Container(
                               width: double.infinity,
                               height: 900.0,
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                 minWidth: double.infinity,
                                 minHeight: 900.0,
                                 maxWidth: double.infinity,
@@ -553,9 +641,9 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                 children: [
                                   Align(
                                     alignment:
-                                        AlignmentDirectional(-1.00, -1.00),
+                                        const AlignmentDirectional(-1.00, -1.00),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 20.0, 0.0, 10.0),
                                       child: Text(
                                         'Reviews',
@@ -563,7 +651,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Outfit',
-                                              color: Color(0xFF1D4C67),
+                                              color: const Color(0xFF1D4C67),
                                               fontSize: 16.0,
                                               letterSpacing: 2.0,
                                             ),
@@ -598,7 +686,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                 ),
                                                 child: Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           -1.00, -1.00),
                                                   child: Row(
                                                     mainAxisSize:
@@ -606,7 +694,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     8.0,
                                                                     0.0,
@@ -621,7 +709,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                                     .of(context)
                                                                 .secondaryBackground,
                                                             image:
-                                                                DecorationImage(
+                                                                const DecorationImage(
                                                               fit: BoxFit.fill,
                                                               image:
                                                                   CachedNetworkImageProvider(
@@ -635,7 +723,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     5.0,
                                                                     0.0,
@@ -656,7 +744,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                       Flexible(
                                                         child: Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   1.00, 0.00),
                                                           child: Container(
                                                             width: 120.0,
@@ -713,12 +801,12 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                                 Flexible(
                                                                   child: Align(
                                                                     alignment:
-                                                                        AlignmentDirectional(
+                                                                        const AlignmentDirectional(
                                                                             1.00,
                                                                             0.00),
                                                                     child:
                                                                         Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           5.0,
@@ -764,10 +852,10 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                 ),
                                               ),
                                               Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     -1.00, -1.00),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(10.0, 10.0,
                                                           10.0, 0.0),
                                                   child: AutoSizeText(
@@ -800,7 +888,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   20.0,
                                                                   0.0,
@@ -815,7 +903,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                                   .of(context)
                                                               .primaryBackground,
                                                           image:
-                                                              DecorationImage(
+                                                              const DecorationImage(
                                                             fit: BoxFit.fill,
                                                             image:
                                                                 CachedNetworkImageProvider(
@@ -827,7 +915,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   10.0,
                                                                   0.0,
@@ -842,7 +930,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                                   .of(context)
                                                               .primaryBackground,
                                                           image:
-                                                              DecorationImage(
+                                                              const DecorationImage(
                                                             fit: BoxFit.fill,
                                                             image:
                                                                 CachedNetworkImageProvider(
@@ -854,7 +942,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   10.0,
                                                                   0.0,
@@ -869,7 +957,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                                   .of(context)
                                                               .primaryBackground,
                                                           image:
-                                                              DecorationImage(
+                                                              const DecorationImage(
                                                             fit: BoxFit.fill,
                                                             image:
                                                                 CachedNetworkImageProvider(
@@ -881,7 +969,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   10.0,
                                                                   0.0,
@@ -896,7 +984,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                                                                   .of(context)
                                                               .primaryBackground,
                                                           image:
-                                                              DecorationImage(
+                                                              const DecorationImage(
                                                             fit: BoxFit.fill,
                                                             image:
                                                                 CachedNetworkImageProvider(
@@ -931,7 +1019,7 @@ class _HotelsNRestaurantDetailsPageWidgetState
                       ],
                     ),
                   ),
-                ].addToEnd(SizedBox(height: 30.0)),
+                ].addToEnd(const SizedBox(height: 30.0)),
               ),
             ),
           ),

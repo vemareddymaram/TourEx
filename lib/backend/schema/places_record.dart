@@ -3,28 +3,31 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class PlacesRecord extends FirestoreRecord {
   PlacesRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
-
-  // "place_is_favorite" field.
-  bool? _placeIsFavorite;
-  bool get placeIsFavorite => _placeIsFavorite ?? false;
-  bool hasPlaceIsFavorite() => _placeIsFavorite != null;
 
   // "created_at" field.
   DateTime? _createdAt;
   DateTime? get createdAt => _createdAt;
   bool hasCreatedAt() => _createdAt != null;
+
+  // "latitude" field.
+  String? _latitude;
+  String get latitude => _latitude ?? '';
+  bool hasLatitude() => _latitude != null;
+
+  // "longitude" field.
+  String? _longitude;
+  String get longitude => _longitude ?? '';
+  bool hasLongitude() => _longitude != null;
 
   // "place_country_name" field.
   String? _placeCountryName;
@@ -46,15 +49,20 @@ class PlacesRecord extends FirestoreRecord {
   List<String> get placeImageUrls => _placeImageUrls ?? const [];
   bool hasPlaceImageUrls() => _placeImageUrls != null;
 
-  // "place_location" field.
-  LatLng? _placeLocation;
-  LatLng? get placeLocation => _placeLocation;
-  bool hasPlaceLocation() => _placeLocation != null;
+  // "place_is_favorite" field.
+  bool? _placeIsFavorite;
+  bool get placeIsFavorite => _placeIsFavorite ?? false;
+  bool hasPlaceIsFavorite() => _placeIsFavorite != null;
 
   // "place_name" field.
   String? _placeName;
   String get placeName => _placeName ?? '';
   bool hasPlaceName() => _placeName != null;
+
+  // "place_open_text" field.
+  String? _placeOpenText;
+  String get placeOpenText => _placeOpenText ?? '';
+  bool hasPlaceOpenText() => _placeOpenText != null;
 
   // "place_ratings" field.
   double? _placeRatings;
@@ -71,54 +79,32 @@ class PlacesRecord extends FirestoreRecord {
   String get placeStateName => _placeStateName ?? '';
   bool hasPlaceStateName() => _placeStateName != null;
 
-  // "place_open_text" field.
-  String? _placeOpenText;
-  String get placeOpenText => _placeOpenText ?? '';
-  bool hasPlaceOpenText() => _placeOpenText != null;
+  // "place_location" field.
+  String? _placeLocation;
+  String get placeLocation => _placeLocation ?? '';
+  bool hasPlaceLocation() => _placeLocation != null;
 
-  // "place_open_time" field.
-  String? _placeOpenTime;
-  String get placeOpenTime => _placeOpenTime ?? '';
-  bool hasPlaceOpenTime() => _placeOpenTime != null;
-
-  // "place_close_text" field.
-  String? _placeCloseText;
-  String get placeCloseText => _placeCloseText ?? '';
-  bool hasPlaceCloseText() => _placeCloseText != null;
-
-  // "place_close_time" field.
-  String? _placeCloseTime;
-  String get placeCloseTime => _placeCloseTime ?? '';
-  bool hasPlaceCloseTime() => _placeCloseTime != null;
-
-  // "latitude" field.
-  String? _latitude;
-  String get latitude => _latitude ?? '';
-  bool hasLatitude() => _latitude != null;
-
-  // "longitude" field.
-  String? _longitude;
-  String get longitude => _longitude ?? '';
-  bool hasLongitude() => _longitude != null;
+  // "placeLocationLatLng" field.
+  LatLng? _placeLocationLatLng;
+  LatLng? get placeLocationLatLng => _placeLocationLatLng;
+  bool hasPlaceLocationLatLng() => _placeLocationLatLng != null;
 
   void _initializeFields() {
-    _placeIsFavorite = snapshotData['place_is_favorite'] as bool?;
     _createdAt = snapshotData['created_at'] as DateTime?;
+    _latitude = snapshotData['latitude'] as String?;
+    _longitude = snapshotData['longitude'] as String?;
     _placeCountryName = snapshotData['place_country_name'] as String?;
     _placeDescription = snapshotData['place_description'] as String?;
     _placeId = snapshotData['place_id'] as String?;
     _placeImageUrls = getDataList(snapshotData['place_image_urls']);
-    _placeLocation = snapshotData['place_location'] as LatLng?;
+    _placeIsFavorite = snapshotData['place_is_favorite'] as bool?;
     _placeName = snapshotData['place_name'] as String?;
+    _placeOpenText = snapshotData['place_open_text'] as String?;
     _placeRatings = castToType<double>(snapshotData['place_ratings']);
     _placeRegionName = snapshotData['place_region_name'] as String?;
     _placeStateName = snapshotData['place_state_name'] as String?;
-    _placeOpenText = snapshotData['place_open_text'] as String?;
-    _placeOpenTime = snapshotData['place_open_time'] as String?;
-    _placeCloseText = snapshotData['place_close_text'] as String?;
-    _placeCloseTime = snapshotData['place_close_time'] as String?;
-    _latitude = snapshotData['latitude'] as String?;
-    _longitude = snapshotData['longitude'] as String?;
+    _placeLocation = snapshotData['place_location'] as String?;
+    _placeLocationLatLng = snapshotData['placeLocationLatLng'] as LatLng?;
   }
 
   static CollectionReference get collection =>
@@ -155,41 +141,37 @@ class PlacesRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createPlacesRecordData({
-  bool? placeIsFavorite,
   DateTime? createdAt,
+  String? latitude,
+  String? longitude,
   String? placeCountryName,
   String? placeDescription,
   String? placeId,
-  LatLng? placeLocation,
+  bool? placeIsFavorite,
   String? placeName,
+  String? placeOpenText,
   double? placeRatings,
   String? placeRegionName,
   String? placeStateName,
-  String? placeOpenText,
-  String? placeOpenTime,
-  String? placeCloseText,
-  String? placeCloseTime,
-  String? latitude,
-  String? longitude,
+  String? placeLocation,
+  LatLng? placeLocationLatLng,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'place_is_favorite': placeIsFavorite,
       'created_at': createdAt,
+      'latitude': latitude,
+      'longitude': longitude,
       'place_country_name': placeCountryName,
       'place_description': placeDescription,
       'place_id': placeId,
-      'place_location': placeLocation,
+      'place_is_favorite': placeIsFavorite,
       'place_name': placeName,
+      'place_open_text': placeOpenText,
       'place_ratings': placeRatings,
       'place_region_name': placeRegionName,
       'place_state_name': placeStateName,
-      'place_open_text': placeOpenText,
-      'place_open_time': placeOpenTime,
-      'place_close_text': placeCloseText,
-      'place_close_time': placeCloseTime,
-      'latitude': latitude,
-      'longitude': longitude,
+      'place_location': placeLocation,
+      'placeLocationLatLng': placeLocationLatLng,
     }.withoutNulls,
   );
 
@@ -202,44 +184,40 @@ class PlacesRecordDocumentEquality implements Equality<PlacesRecord> {
   @override
   bool equals(PlacesRecord? e1, PlacesRecord? e2) {
     const listEquality = ListEquality();
-    return e1?.placeIsFavorite == e2?.placeIsFavorite &&
-        e1?.createdAt == e2?.createdAt &&
+    return e1?.createdAt == e2?.createdAt &&
+        e1?.latitude == e2?.latitude &&
+        e1?.longitude == e2?.longitude &&
         e1?.placeCountryName == e2?.placeCountryName &&
         e1?.placeDescription == e2?.placeDescription &&
         e1?.placeId == e2?.placeId &&
         listEquality.equals(e1?.placeImageUrls, e2?.placeImageUrls) &&
-        e1?.placeLocation == e2?.placeLocation &&
+        e1?.placeIsFavorite == e2?.placeIsFavorite &&
         e1?.placeName == e2?.placeName &&
+        e1?.placeOpenText == e2?.placeOpenText &&
         e1?.placeRatings == e2?.placeRatings &&
         e1?.placeRegionName == e2?.placeRegionName &&
         e1?.placeStateName == e2?.placeStateName &&
-        e1?.placeOpenText == e2?.placeOpenText &&
-        e1?.placeOpenTime == e2?.placeOpenTime &&
-        e1?.placeCloseText == e2?.placeCloseText &&
-        e1?.placeCloseTime == e2?.placeCloseTime &&
-        e1?.latitude == e2?.latitude &&
-        e1?.longitude == e2?.longitude;
+        e1?.placeLocation == e2?.placeLocation &&
+        e1?.placeLocationLatLng == e2?.placeLocationLatLng;
   }
 
   @override
   int hash(PlacesRecord? e) => const ListEquality().hash([
-        e?.placeIsFavorite,
         e?.createdAt,
+        e?.latitude,
+        e?.longitude,
         e?.placeCountryName,
         e?.placeDescription,
         e?.placeId,
         e?.placeImageUrls,
-        e?.placeLocation,
+        e?.placeIsFavorite,
         e?.placeName,
+        e?.placeOpenText,
         e?.placeRatings,
         e?.placeRegionName,
         e?.placeStateName,
-        e?.placeOpenText,
-        e?.placeOpenTime,
-        e?.placeCloseText,
-        e?.placeCloseTime,
-        e?.latitude,
-        e?.longitude
+        e?.placeLocation,
+        e?.placeLocationLatLng
       ]);
 
   @override
